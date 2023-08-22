@@ -4,10 +4,10 @@
 baseurl:
 url: https://daddywolf.github.io
 date_format: "ordinal"
-title: 码志
-subtitle: "公众号：闷骚的程序员"
-description: "马壮的个人博客，公众号：闷骚的程序员"
-keywords: 码志, Zhuang Ma, mzlogin, mazhuang, 闷骚的程序员
+title: Daddyw01f
+subtitle: "We are here to enrich lives "
+description: "Daddyw01f的个人博客"
+keywords: Daddyw01f
 timezone: Asia/Shanghai
 encoding: "utf-8"
 # 页面左下角显示的年份
@@ -17,7 +17,7 @@ repository: daddywolf/daddywolf.github.io
 # 对 css 和 js 资源的 cdn 加速配置
 cdn:
     jsdelivr:
-        enabled: false
+        enabled: true
 # 可选组件配置
 components:
     # 分享
@@ -57,12 +57,12 @@ highlight_theme: github
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: Zhuang Ma
+author: Daddyw01f
 organization: 
-organization_url: 
-github_username: mzlogin
-location: Wuhan, China
-email: chumpma@gmail.com
+organization_url: https://github.com/daddywolf
+github_username: daddywolf
+location: Lancaster, UK
+email: tim@gou.to
 
 # ---------------- #
 #    Navigation    #
