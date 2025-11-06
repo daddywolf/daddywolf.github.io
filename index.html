@@ -510,15 +510,19 @@
                     recordLines.push(`- 链接：${linkStr}`);
                 }
 
-                // 5. 粉丝量 (始终显示)
                 try {
                     const count = parseInt(row['小红书粉丝数'], 10);
-                    const followerStr = isNaN(count) ? row['小红书粉丝数'] : numberFormatter.format(count);
+                    let followerStr = isNaN(count) ? row['小红书粉丝数'] : numberFormatter.format(count);
+
+                    // [新功能] 如果粉丝数 >= 10000，添加五角星
+                    if (!isNaN(count) && count >= 10000) {
+                        followerStr += ' ⭐️'; // 添加五角星
+                    }
+
                     recordLines.push(`- 粉丝量：${followerStr || '0'}`);
                 } catch (e) {
                     recordLines.push(`- 粉丝量：${row['小红书粉丝数'] || '(错误)'}`);
                 }
-
                 // 6. 状态 (条件显示)
                 if (showStatus) {
                     const status = row['已发送给店家'];
