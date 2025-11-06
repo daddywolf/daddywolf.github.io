@@ -100,6 +100,14 @@
                                 排除“已发送给店家”
                             </label>
                         </div>
+
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" id="filter-this-week">
+                            <label for="filter-this-week" class="text-sm text-gray-600">
+                                只看本周 (周一至日)
+                            </label>
+                        </div>
+
                         <div class="flex items-center space-x-3">
                             <input type="checkbox" id="filter-next-week">
                             <label for="filter-next-week" class="text-sm text-gray-600">
@@ -145,15 +153,15 @@
             </aside>
 
             <main class="md:col-span-2 bg-white p-5 rounded-xl shadow-lg flex flex-col">
-                
+
                 <h2 id="results-label" class="text-lg font-semibold text-gray-700 mb-4 pb-3 border-b border-gray-200 flex-shrink-0">
                     5. 解析结果：
                 </h2>
-                
-                <pre id="results-output" 
+
+                <pre id="results-output"
                      class="w-full flex-1 overflow-y-auto bg-gray-50 p-4 rounded-lg text-sm text-gray-700 whitespace-pre-wrap font-mono"
                      style=""></pre>
-                
+
                 <button id="copy-results-btn"
                         class="mt-4 w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 hover:bg-green-700 active:bg-green-800 flex-shrink-0">
                     一键复制结果
@@ -166,14 +174,12 @@
     <script>
         // --- 全局变量 ---
         let globalData = [];
-        
-        // [已修改] 增加 '手机' 和 '邮箱'
-        // !! 警告: 您的 Excel 必须包含这些列名，否则加载会失败
+
         const requiredCols = [
-            '预约日期', '小红书名', '小红书粉丝数', '预约餐厅', 
+            '预约日期', '小红书名', '小红书粉丝数', '预约餐厅',
             '已发送给店家', '小红书链接', '手机', '邮箱'
         ];
-        
+
         const WEEKDAY_MAP_JS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
         const numberFormatter = new Intl.NumberFormat('en-US');
 
@@ -181,37 +187,38 @@
         const urlInput = document.getElementById('url-input');
         const loadUrlBtn = document.getElementById('load-url-btn');
         const fileInput = document.getElementById('file-upload');
-        
+
         const loadingSpinner = document.getElementById('loading-spinner');
         const errorMessage = document.getElementById('error-message');
         const successMessage = document.getElementById('success-message');
         const restaurantContainer = document.getElementById('restaurant-list-container');
         const resultsLabel = document.getElementById('results-label');
         const resultsOutput = document.getElementById('results-output');
-        
-        // [已修改] 筛选选项
+
         const filterExcludeSent = document.getElementById('filter-exclude-sent');
-        const filterNextWeek = document.getElementById('filter-next-week'); // [新增]
-        const filterOver10k = document.getElementById('filter-over-10k');   // [新增]
-        
-        // [已修改] 显示选项
+        const filterThisWeek = document.getElementById('filter-this-week');
+        const filterNextWeek = document.getElementById('filter-next-week');
+        const filterOver10k = document.getElementById('filter-over-10k');
+
         const displayRestaurant = document.getElementById('display-restaurant');
         const displayLink = document.getElementById('display-link');
         const displayStatus = document.getElementById('display-status');
-        const displayPhone = document.getElementById('display-phone');     // [新增]
-        const displayEmail = document.getElementById('display-email');     // [新增]
-        
+        const displayPhone = document.getElementById('display-phone');
+        const displayEmail = document.getElementById('display-email');
+
         const copyBtn = document.getElementById('copy-results-btn');
 
 
-        // --- [已修改] 事件监听 ---
-        
+        // --- [Gemini 修改] 事件监听 ---
+
         loadUrlBtn.addEventListener('click', handleUrlLoad);
         fileInput.addEventListener('change', handleFileSelect);
 
-        // 2. 监听所有筛选/显示选项的变化 (已更新)
+        // 2. 监听所有 *普通* 筛选/显示选项的变化
+        // [Gemini 修改] 移除了 filterThisWeek 和 filterNextWeek，它们需要特殊处理
         [
-            filterExcludeSent, filterNextWeek, filterOver10k,
+            filterExcludeSent,
+            filterOver10k,
             displayRestaurant, displayLink, displayStatus, displayPhone, displayEmail
         ].forEach(checkbox => {
             if (checkbox) { // 确保元素存在
@@ -219,14 +226,33 @@
             }
         });
 
-        // 3. 监听餐厅列表
+        // 3. [Gemini 修改] "本周" 和 "下周" 筛选的互斥逻辑和单独的监听
+        if (filterThisWeek && filterNextWeek) {
+            filterThisWeek.addEventListener('change', () => {
+                if (filterThisWeek.checked) {
+                    filterNextWeek.checked = false;
+                }
+                // 在互斥逻辑完成后再调用更新
+                updateDisplay();
+            });
+
+            filterNextWeek.addEventListener('change', () => {
+                if (filterNextWeek.checked) {
+                    filterThisWeek.checked = false;
+                }
+                // 在互斥逻辑完成后再调用更新
+                updateDisplay();
+            });
+        }
+
+        // 4. 监听餐厅列表
         restaurantContainer.addEventListener('change', (e) => {
             if (e.target.type === 'checkbox') {
                 updateDisplay();
             }
         });
 
-        // 4. 监听复制按钮
+        // 5. 监听复制按钮
         copyBtn.addEventListener('click', copyResultsToClipboard);
 
 
@@ -314,8 +340,7 @@
                 if (h == null) return '';
                 return String(h).replace(/\ufeff/g, '').trim();
             });
-            
-            // 检查必需列 (现在包含手机和邮箱)
+
             const missingCols = requiredCols.filter(col => !headers.includes(col));
             if (missingCols.length > 0) {
                 console.log("找到的表头:", headers);
@@ -334,7 +359,7 @@
                     colIndexMap[reqCol] = index;
                 }
             });
-            
+
             const dataRows = dataAsArray.slice(1);
             dataRows.forEach((row, index) => {
                 const dtValue = row[colIndexMap['预约日期']];
@@ -346,7 +371,7 @@
                 } else if (typeof dtValue === 'string') {
                     dt = new Date(dtValue);
                 }
-                
+
                 const restaurantName = row[colIndexMap['预约餐厅']];
                 if (dt && !isNaN(dt.getTime())) {
                     let trimmedRestaurantName = null;
@@ -357,11 +382,10 @@
                         }
                     }
                     const normalizedRow = {};
-                    // [已修改] 确保所有必需列都被正确读取
                     for (const reqCol in colIndexMap) {
                         normalizedRow[reqCol] = row[colIndexMap[reqCol]];
                     }
-                    
+
                     globalData.push({
                         ...normalizedRow,
                         '预约日期_dt': dt,
@@ -396,7 +420,7 @@
         }
 
         /**
-         * 4. [已修改] 核心筛选/显示函数
+         * 4. 核心筛选/显示函数
          */
         function updateDisplay() {
             if (globalData.length === 0) {
@@ -412,15 +436,16 @@
 
             // B. 获取筛选选项
             const bExcludeSent = filterExcludeSent.checked;
-            const bNextWeek = filterNextWeek.checked;   // [新增]
-            const bOver10k = filterOver10k.checked;     // [新增]
+            const bThisWeek = filterThisWeek.checked;
+            const bNextWeek = filterNextWeek.checked;
+            const bOver10k = filterOver10k.checked;
 
             // C. 获取显示选项
             const bShowRestaurant = displayRestaurant.checked;
             const bShowLink = displayLink.checked;
             const bShowStatus = displayStatus.checked;
-            const bShowPhone = displayPhone.checked;    // [新增]
-            const bShowEmail = displayEmail.checked;    // [新增]
+            const bShowPhone = displayPhone.checked;
+            const bShowEmail = displayEmail.checked;
 
 
             // --- D. 开始筛选 ---
@@ -428,7 +453,7 @@
 
             // 1. 按餐厅筛选
             if (selectedRestaurants.length > 0) {
-                filteredData = globalData.filter(row => 
+                filteredData = globalData.filter(row =>
                     selectedRestaurants.includes(row['预约餐厅'])
                 );
             } else {
@@ -443,33 +468,38 @@
                 });
             }
 
-            // 3. [新增] 按“只看下周”筛选
-            if (bNextWeek) {
+            // 3. 按“周”筛选 (本周和下周互斥)
+            // [Gemini 修改] 现在这里的 bThisWeek 和 bNextWeek 状态是正确的
+            if (bThisWeek) {
+                const { start, end } = getThisWeekRange();
+                filteredData = filteredData.filter(row => {
+                    const apptDate = row['预约日期_dt'];
+                    return apptDate >= start && apptDate <= end;
+                });
+            } else if (bNextWeek) {
                 const { start, end } = getNextWeekRange();
                 filteredData = filteredData.filter(row => {
                     const apptDate = row['预约日期_dt'];
                     return apptDate >= start && apptDate <= end;
                 });
             }
-            
-            // 4. [新增] 按“只看万粉”筛选
+
+            // 4. 按“只看万粉”筛选
             if (bOver10k) {
                 filteredData = filteredData.filter(row => {
-                    // 尝试将粉丝数转换为整数
                     const followers = parseInt(row['小红书粉丝数'], 10);
-                    // 确保转换成功 (不是 NaN) 并且大于等于 10000
                     return !isNaN(followers) && followers >= 10000;
                 });
             }
 
             // --- E. 格式化输出 ---
             const resultString = formatDataToString(
-                filteredData, 
-                bShowRestaurant, 
-                bShowLink, 
+                filteredData,
+                bShowRestaurant,
+                bShowLink,
                 bShowStatus,
-                bShowPhone,      // [新增]
-                bShowEmail       // [新增]
+                bShowPhone,
+                bShowEmail
             );
 
             // F. 更新 UI
@@ -478,7 +508,7 @@
         }
 
         /**
-         * 5. [已修改] 将筛选后的数据格式化为最终字符串
+         * 5. 将筛选后的数据格式化为最终字符串
          */
         function formatDataToString(data, showRestaurant, showLink, showStatus, showPhone, showEmail) {
             if (data.length === 0) {
@@ -499,7 +529,7 @@
                 if (showRestaurant) {
                     recordLines.push(`- 餐厅：${row['预约餐厅'] || '(空)'}`);
                 }
-                
+
                 // 3. 博主 (始终显示)
                 recordLines.push(`- 博主：${row['小红书名'] || '(空)'}`);
 
@@ -510,11 +540,11 @@
                     recordLines.push(`- 链接：${linkStr}`);
                 }
 
+                // 5. 粉丝量 (始终显示)，并为 >= 10000 的添加五角星
                 try {
                     const count = parseInt(row['小红书粉丝数'], 10);
                     let followerStr = isNaN(count) ? row['小红书粉丝数'] : numberFormatter.format(count);
 
-                    // [新功能] 如果粉丝数 >= 10000，添加五角星
                     if (!isNaN(count) && count >= 10000) {
                         followerStr += ' ⭐️'; // 添加五角星
                     }
@@ -523,6 +553,7 @@
                 } catch (e) {
                     recordLines.push(`- 粉丝量：${row['小红书粉丝数'] || '(错误)'}`);
                 }
+
                 // 6. 状态 (条件显示)
                 if (showStatus) {
                     const status = row['已发送给店家'];
@@ -538,19 +569,19 @@
                     }
                     recordLines.push(`- 状态：${statusStr}`);
                 }
-                
-                // 7. [新增] 手机 (条件显示)
+
+                // 7. 手机 (条件显示)
                 if (showPhone) {
                     const phone = row['手机'];
                     recordLines.push(`- 手机：${phone || '(空)'}`);
                 }
-                
-                // 8. [新增] 邮箱 (条件显示)
+
+                // 8. 邮箱 (条件显示)
                 if (showEmail) {
                     const email = row['邮箱'];
                     recordLines.push(`- 邮箱：${email || '(空)'}`);
                 }
-                
+
                 return recordLines.join('\n');
             });
 
@@ -559,32 +590,44 @@
 
 
         // --- 辅助工具函数 ---
-        
+
         /**
-         * [新增] 获取“下一周”的日期范围 (周一 00:00:00 到 周日 23:59:59)
+         * 获取“本周”的日期范围 (周一 00:00:00 到 周日 23:59:59)
+         */
+        function getThisWeekRange() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // 标准化到今天的开始
+
+            const dayOfWeek = today.getDay(); // 0=周日, 1=周一, ..., 6=周六
+            const daysToSubtract = (dayOfWeek === 0) ? 6 : (dayOfWeek - 1);
+
+            const thisMonday = new Date(today.getTime());
+            thisMonday.setDate(today.getDate() - daysToSubtract);
+
+            const thisSunday = new Date(thisMonday.getTime());
+            thisSunday.setDate(thisMonday.getDate() + 6);
+            thisSunday.setHours(23, 59, 59, 999);
+
+            return { start: thisMonday, end: thisSunday };
+        }
+
+        /**
+         * 获取“下一周”的日期范围 (周一 00:00:00 到 周日 23:59:59)
          */
         function getNextWeekRange() {
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // 标准化到今天的开始
-            
-            // 0=周日, 1=周一, ..., 6=周六
-            const dayOfWeek = today.getDay(); 
-            
-            // 计算到“下周一”需要加几天
-            // 如果今天是周日(0): +1 天
-            // 如果今天是周一(1): +7 天
-            // 如果今天是周六(6): +2 天
+            today.setHours(0, 0, 0, 0);
+
+            const dayOfWeek = today.getDay(); // 0=周日, 1=周一, ..., 6=周六
             const daysToAdd = (dayOfWeek === 0) ? 1 : (8 - dayOfWeek);
-            
+
             const nextMonday = new Date(today.getTime());
             nextMonday.setDate(today.getDate() + daysToAdd);
-            
-            // 下周日 = 下周一 + 6 天
+
             const nextSunday = new Date(nextMonday.getTime());
             nextSunday.setDate(nextMonday.getDate() + 6);
-            // 设置到当天的 23:59:59 确保包含全天
-            nextSunday.setHours(23, 59, 59, 999); 
-            
+            nextSunday.setHours(23, 59, 59, 999);
+
             return { start: nextMonday, end: nextSunday };
         }
 
@@ -609,7 +652,8 @@
             try {
                 await navigator.clipboard.writeText(textToCopy);
                 showCopyFeedback(copyBtn, "已复制！");
-            } catch (err) {
+            } catch (err)
+                {
                 console.error('复制到剪贴板失败: ', err);
                 showCopyFeedback(copyBtn, "复制失败", true);
             }
