@@ -23,13 +23,13 @@
 <body class="bg-gray-100 font-sans leading-normal">
 
     <div class="container mx-auto max-w-4xl p-5 md:p-8 min-h-screen">
-
+        
         <header class="bg-white p-6 rounded-xl shadow-lg mb-6">
             <h1 class="text-2xl md:text-3xl font-bold text-gray-800 text-center mb-4">
                 伦敦小红书博主探店预约解析器
             </h1>
             <div class="text-center">
-                <a href="https://jinshuju.net/forms/Mhc1wf/entries" target="_blank" rel="noopener noreferrer"
+                <a href="https://jinshuju.net/forms/Mhc1wf/entries" target="_blank" rel="noopener noreferrer" 
                    class="text-blue-600 hover:text-blue-800 hover:underline font-medium text-sm transition-colors duration-200">
                     点击访问数据后台 (jinshuju.net)
                 </a>
@@ -47,10 +47,10 @@
 
                     <div class="mb-4">
                         <label for="url-input" class="text-sm font-medium text-gray-600 mb-1 block">A. 从 URL 加载</label>
-                        <input type="text" id="url-input"
+                        <input type="text" id="url-input" 
                                placeholder="https://example.com/data.xlsx"
                                class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
-                        <button id="load-url-btn"
+                        <button id="load-url-btn" 
                                 class="mt-2 w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 hover:bg-blue-700 active:bg-blue-800">
                             加载 URL
                         </button>
@@ -67,8 +67,8 @@
 
                     <div>
                         <label for="file-upload" class="text-sm font-medium text-gray-600 mb-1 block">B. 从本地上传</label>
-                        <input type="file" id="file-upload"
-                               class="block w-full text-sm text-gray-500 file:mr-4 file:cursor-pointer"
+                        <input type="file" id="file-upload" 
+                               class="block w-full text-sm text-gray-500 file:mr-4 file:cursor-pointer" 
                                accept=".xlsx, .xls, .csv">
                     </div>
 
@@ -83,7 +83,7 @@
                     <label class="text-lg font-semibold text-gray-700 mb-3 block">
                         2. 选择餐厅
                     </label>
-                    <div id="restaurant-list-container"
+                    <div id="restaurant-list-container" 
                          class="h-48 overflow-y-auto border border-gray-200 rounded-lg p-3 space-y-2 bg-gray-50">
                         <span class="text-gray-500 text-sm">请先加载数据...</span>
                     </div>
@@ -93,11 +93,25 @@
                     <label class="text-lg font-semibold text-gray-700 mb-3 block">
                         3. 筛选选项
                     </label>
-                    <div class="flex items-center space-x-3">
-                        <input type="checkbox" id="filter-exclude-sent">
-                        <label for="filter-exclude-sent" class="text-sm text-gray-600">
-                            排除“已发送给店家”的数据
-                        </label>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" id="filter-exclude-sent">
+                            <label for="filter-exclude-sent" class="text-sm text-gray-600">
+                                排除“已发送给店家”
+                            </label>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" id="filter-next-week">
+                            <label for="filter-next-week" class="text-sm text-gray-600">
+                                只看下周 (周一至日)
+                            </label>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" id="filter-over-10k">
+                            <label for="filter-over-10k" class="text-sm text-gray-600">
+                                只看万粉 (>= 10000)
+                            </label>
+                        </div>
                     </div>
                 </div>
 
@@ -118,60 +132,105 @@
                             <input type="checkbox" id="display-status">
                             <label for="display-status" class="text-sm text-gray-600">显示发送状态</label>
                         </div>
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" id="display-phone">
+                            <label for="display-phone" class="text-sm text-gray-600">显示手机</label>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <input type="checkbox" id="display-email">
+                            <label for="display-email" class="text-sm text-gray-600">显示邮箱</label>
+                        </div>
                     </div>
                 </div>
             </aside>
 
             <main class="md:col-span-2 bg-white p-5 rounded-xl shadow-lg flex flex-col">
-
+                
                 <h2 id="results-label" class="text-lg font-semibold text-gray-700 mb-4 pb-3 border-b border-gray-200 flex-shrink-0">
                     5. 解析结果：
                 </h2>
-
-                <pre id="results-output"
+                
+                <pre id="results-output" 
                      class="w-full flex-1 overflow-y-auto bg-gray-50 p-4 rounded-lg text-sm text-gray-700 whitespace-pre-wrap font-mono"
-                     style=""></pre> <button id="copy-results-btn"
+                     style=""></pre>
+                
+                <button id="copy-results-btn"
                         class="mt-4 w-full bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-200 hover:bg-green-700 active:bg-green-800 flex-shrink-0">
                     一键复制结果
                 </button>
             </main>
         </div>
+        <center>JZPNB</center>
     </div>
 
     <script>
-        // --- 所有的 JavaScript 逻辑 (无需修改，保持原样) ---
-
+        // --- 全局变量 ---
         let globalData = [];
-        const requiredCols = ['预约日期', '小红书名', '小红书粉丝数', '预约餐厅', '已发送给店家', '小红书链接'];
+        
+        // [已修改] 增加 '手机' 和 '邮箱'
+        // !! 警告: 您的 Excel 必须包含这些列名，否则加载会失败
+        const requiredCols = [
+            '预约日期', '小红书名', '小红书粉丝数', '预约餐厅', 
+            '已发送给店家', '小红书链接', '手机', '邮箱'
+        ];
+        
         const WEEKDAY_MAP_JS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
         const numberFormatter = new Intl.NumberFormat('en-US');
 
+        // --- DOM 元素引用 ---
         const urlInput = document.getElementById('url-input');
         const loadUrlBtn = document.getElementById('load-url-btn');
         const fileInput = document.getElementById('file-upload');
+        
         const loadingSpinner = document.getElementById('loading-spinner');
         const errorMessage = document.getElementById('error-message');
         const successMessage = document.getElementById('success-message');
         const restaurantContainer = document.getElementById('restaurant-list-container');
         const resultsLabel = document.getElementById('results-label');
         const resultsOutput = document.getElementById('results-output');
+        
+        // [已修改] 筛选选项
         const filterExcludeSent = document.getElementById('filter-exclude-sent');
+        const filterNextWeek = document.getElementById('filter-next-week'); // [新增]
+        const filterOver10k = document.getElementById('filter-over-10k');   // [新增]
+        
+        // [已修改] 显示选项
         const displayRestaurant = document.getElementById('display-restaurant');
         const displayLink = document.getElementById('display-link');
         const displayStatus = document.getElementById('display-status');
+        const displayPhone = document.getElementById('display-phone');     // [新增]
+        const displayEmail = document.getElementById('display-email');     // [新增]
+        
         const copyBtn = document.getElementById('copy-results-btn');
 
+
+        // --- [已修改] 事件监听 ---
+        
         loadUrlBtn.addEventListener('click', handleUrlLoad);
         fileInput.addEventListener('change', handleFileSelect);
-        [filterExcludeSent, displayRestaurant, displayLink, displayStatus].forEach(checkbox => {
-            checkbox.addEventListener('change', updateDisplay);
+
+        // 2. 监听所有筛选/显示选项的变化 (已更新)
+        [
+            filterExcludeSent, filterNextWeek, filterOver10k,
+            displayRestaurant, displayLink, displayStatus, displayPhone, displayEmail
+        ].forEach(checkbox => {
+            if (checkbox) { // 确保元素存在
+                checkbox.addEventListener('change', updateDisplay);
+            }
         });
+
+        // 3. 监听餐厅列表
         restaurantContainer.addEventListener('change', (e) => {
             if (e.target.type === 'checkbox') {
                 updateDisplay();
             }
         });
+
+        // 4. 监听复制按钮
         copyBtn.addEventListener('click', copyResultsToClipboard);
+
+
+        // --- 核心功能函数 ---
 
         function resetUIForLoading(message) {
             loadingSpinner.textContent = message;
@@ -201,7 +260,7 @@
             } catch (err) {
                 console.error("加载 URL 失败:", err);
                 if (err instanceof TypeError && err.message.includes('Failed to fetch')) {
-                    showError('加载失败：可能是跨域 (CORS) 限制。目标服务器必须允许从本网站访问。');
+                    showError('加载失败：可能是跨域 (CORS) 限制。');
                 } else {
                     showError(`文件加载或解析失败: ${err.message}`);
                 }
@@ -255,15 +314,17 @@
                 if (h == null) return '';
                 return String(h).replace(/\ufeff/g, '').trim();
             });
+            
+            // 检查必需列 (现在包含手机和邮箱)
             const missingCols = requiredCols.filter(col => !headers.includes(col));
             if (missingCols.length > 0) {
-                console.log("找到的表头 (原始):", rawHeaders);
-                console.log("找到的表头 (已清理):", headers);
+                console.log("找到的表头:", headers);
                 console.log("需要的表头:", requiredCols);
                 showError(`Excel 缺少必需列: ${missingCols.join(', ')}`);
                 loadingSpinner.classList.add('hidden');
                 return;
             }
+
             let uniqueRestaurants = new Set();
             globalData = [];
             const colIndexMap = {};
@@ -273,6 +334,7 @@
                     colIndexMap[reqCol] = index;
                 }
             });
+            
             const dataRows = dataAsArray.slice(1);
             dataRows.forEach((row, index) => {
                 const dtValue = row[colIndexMap['预约日期']];
@@ -284,6 +346,7 @@
                 } else if (typeof dtValue === 'string') {
                     dt = new Date(dtValue);
                 }
+                
                 const restaurantName = row[colIndexMap['预约餐厅']];
                 if (dt && !isNaN(dt.getTime())) {
                     let trimmedRestaurantName = null;
@@ -294,9 +357,11 @@
                         }
                     }
                     const normalizedRow = {};
+                    // [已修改] 确保所有必需列都被正确读取
                     for (const reqCol in colIndexMap) {
                         normalizedRow[reqCol] = row[colIndexMap[reqCol]];
                     }
+                    
                     globalData.push({
                         ...normalizedRow,
                         '预约日期_dt': dt,
@@ -330,63 +395,122 @@
             restaurantContainer.innerHTML = html;
         }
 
+        /**
+         * 4. [已修改] 核心筛选/显示函数
+         */
         function updateDisplay() {
             if (globalData.length === 0) {
                 resultsLabel.textContent = `5. 解析结果： (共 0 条)`;
                 resultsOutput.textContent = '';
                 return;
             }
+
+            // A. 获取所有选中的餐厅
             const selectedRestaurants = Array.from(
                 restaurantContainer.querySelectorAll('.restaurant-checkbox:checked')
             ).map(cb => cb.value);
+
+            // B. 获取筛选选项
             const bExcludeSent = filterExcludeSent.checked;
+            const bNextWeek = filterNextWeek.checked;   // [新增]
+            const bOver10k = filterOver10k.checked;     // [新增]
+
+            // C. 获取显示选项
             const bShowRestaurant = displayRestaurant.checked;
             const bShowLink = displayLink.checked;
             const bShowStatus = displayStatus.checked;
+            const bShowPhone = displayPhone.checked;    // [新增]
+            const bShowEmail = displayEmail.checked;    // [新增]
+
+
+            // --- D. 开始筛选 ---
             let filteredData = [];
+
+            // 1. 按餐厅筛选
             if (selectedRestaurants.length > 0) {
-                filteredData = globalData.filter(row =>
+                filteredData = globalData.filter(row => 
                     selectedRestaurants.includes(row['预约餐厅'])
                 );
             } else {
                 filteredData = [];
             }
+
+            // 2. 按“排除已发送”筛选
             if (bExcludeSent) {
                 filteredData = filteredData.filter(row => {
                     const status = row['已发送给店家'];
                     return status == null || status === '否' || status === false || String(status).trim() === '';
                 });
             }
+
+            // 3. [新增] 按“只看下周”筛选
+            if (bNextWeek) {
+                const { start, end } = getNextWeekRange();
+                filteredData = filteredData.filter(row => {
+                    const apptDate = row['预约日期_dt'];
+                    return apptDate >= start && apptDate <= end;
+                });
+            }
+            
+            // 4. [新增] 按“只看万粉”筛选
+            if (bOver10k) {
+                filteredData = filteredData.filter(row => {
+                    // 尝试将粉丝数转换为整数
+                    const followers = parseInt(row['小红书粉丝数'], 10);
+                    // 确保转换成功 (不是 NaN) 并且大于等于 10000
+                    return !isNaN(followers) && followers >= 10000;
+                });
+            }
+
+            // --- E. 格式化输出 ---
             const resultString = formatDataToString(
-                filteredData,
-                bShowRestaurant,
-                bShowLink,
-                bShowStatus
+                filteredData, 
+                bShowRestaurant, 
+                bShowLink, 
+                bShowStatus,
+                bShowPhone,      // [新增]
+                bShowEmail       // [新增]
             );
+
+            // F. 更新 UI
             resultsLabel.textContent = `5. 解析结果： (共 ${filteredData.length} 条)`;
             resultsOutput.textContent = resultString;
         }
 
-        function formatDataToString(data, showRestaurant, showLink, showStatus) {
+        /**
+         * 5. [已修改] 将筛选后的数据格式化为最终字符串
+         */
+        function formatDataToString(data, showRestaurant, showLink, showStatus, showPhone, showEmail) {
             if (data.length === 0) {
                 return '没有找到匹配所选筛选条件的预约记录。';
             }
+
             const outputLines = data.map(row => {
                 const recordLines = [];
                 const dt = row['预约日期_dt'];
+
+                // 1. 日期、星期、时间 (始终显示)
                 const dateStr = `${dt.getMonth() + 1}月${dt.getDate()}日`;
                 const dayStr = `（${WEEKDAY_MAP_JS[dt.getDay()]}）`;
                 const timeStr = formatTimeAMPM(dt);
                 recordLines.push(`- ${dateStr}${dayStr} ${timeStr}`);
+
+                // 2. 餐厅 (条件显示)
                 if (showRestaurant) {
                     recordLines.push(`- 餐厅：${row['预约餐厅'] || '(空)'}`);
                 }
+                
+                // 3. 博主 (始终显示)
                 recordLines.push(`- 博主：${row['小红书名'] || '(空)'}`);
+
+                // 4. 链接 (条件显示)
                 if (showLink) {
                     const link = row['小红书链接'];
                     const linkStr = (link && String(link).trim() !== '') ? link : '(空)';
                     recordLines.push(`- 链接：${linkStr}`);
                 }
+
+                // 5. 粉丝量 (始终显示)
                 try {
                     const count = parseInt(row['小红书粉丝数'], 10);
                     const followerStr = isNaN(count) ? row['小红书粉丝数'] : numberFormatter.format(count);
@@ -394,6 +518,8 @@
                 } catch (e) {
                     recordLines.push(`- 粉丝量：${row['小红书粉丝数'] || '(错误)'}`);
                 }
+
+                // 6. 状态 (条件显示)
                 if (showStatus) {
                     const status = row['已发送给店家'];
                     let statusStr = "未知";
@@ -408,9 +534,54 @@
                     }
                     recordLines.push(`- 状态：${statusStr}`);
                 }
+                
+                // 7. [新增] 手机 (条件显示)
+                if (showPhone) {
+                    const phone = row['手机'];
+                    recordLines.push(`- 手机：${phone || '(空)'}`);
+                }
+                
+                // 8. [新增] 邮箱 (条件显示)
+                if (showEmail) {
+                    const email = row['邮箱'];
+                    recordLines.push(`- 邮箱：${email || '(空)'}`);
+                }
+                
                 return recordLines.join('\n');
             });
+
             return outputLines.join('\n\n');
+        }
+
+
+        // --- 辅助工具函数 ---
+        
+        /**
+         * [新增] 获取“下一周”的日期范围 (周一 00:00:00 到 周日 23:59:59)
+         */
+        function getNextWeekRange() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // 标准化到今天的开始
+            
+            // 0=周日, 1=周一, ..., 6=周六
+            const dayOfWeek = today.getDay(); 
+            
+            // 计算到“下周一”需要加几天
+            // 如果今天是周日(0): +1 天
+            // 如果今天是周一(1): +7 天
+            // 如果今天是周六(6): +2 天
+            const daysToAdd = (dayOfWeek === 0) ? 1 : (8 - dayOfWeek);
+            
+            const nextMonday = new Date(today.getTime());
+            nextMonday.setDate(today.getDate() + daysToAdd);
+            
+            // 下周日 = 下周一 + 6 天
+            const nextSunday = new Date(nextMonday.getTime());
+            nextSunday.setDate(nextMonday.getDate() + 6);
+            // 设置到当天的 23:59:59 确保包含全天
+            nextSunday.setHours(23, 59, 59, 999); 
+            
+            return { start: nextMonday, end: nextSunday };
         }
 
         async function copyResultsToClipboard() {
