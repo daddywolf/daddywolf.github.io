@@ -96,7 +96,7 @@
                 </label>
                 <div class="space-y-3">
                     <div class="flex items-center space-x-3">
-                        <input type="checkbox" id="filter-exclude-sent">
+                        <input type="checkbox" id="filter-exclude-sent" checked>
                         <label for="filter-exclude-sent" class="text-sm text-gray-600">
                             排除“已发送给店家”
                         </label>
@@ -130,12 +130,16 @@
                 </label>
                 <div class="space-y-3">
                     <div class="flex items-center space-x-3">
-                        <input type="checkbox" id="display-restaurant">
+                        <input type="checkbox" id="display-restaurant" checked>
                         <label for="display-restaurant" class="text-sm text-gray-600">显示餐厅</label>
                     </div>
                     <div class="flex items-center space-x-3">
-                        <input type="checkbox" id="display-link">
+                        <input type="checkbox" id="display-link" checked>
                         <label for="display-link" class="text-sm text-gray-600">显示小红书链接</label>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" id="display-people-count" checked>
+                        <label for="display-people-count" class="text-sm text-gray-600">显示预约人数</label>
                     </div>
                     <div class="flex items-center space-x-3">
                         <input type="checkbox" id="display-status">
@@ -178,9 +182,10 @@
     // --- 全局变量 ---
     let globalData = [];
 
+    // [Gemini 修改] 新增 '预约人数' 到必需列
     const requiredCols = [
         '预约日期', '小红书名', '小红书粉丝数', '预约餐厅',
-        '已发送给店家', '小红书链接', '手机', '邮箱'
+        '已发送给店家', '小红书链接', '手机', '邮箱', '预约人数'
     ];
 
     const WEEKDAY_MAP_JS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
@@ -208,34 +213,36 @@
     const displayStatus = document.getElementById('display-status');
     const displayPhone = document.getElementById('display-phone');
     const displayEmail = document.getElementById('display-email');
+    // [Gemini 新增] 获取新 checkbox 的引用
+    const displayPeopleCount = document.getElementById('display-people-count');
 
     const copyBtn = document.getElementById('copy-results-btn');
 
 
-    // --- [Gemini 修改] 事件监听 ---
+    // --- 事件监听 ---
 
     loadUrlBtn.addEventListener('click', handleUrlLoad);
     fileInput.addEventListener('change', handleFileSelect);
 
     // 2. 监听所有 *普通* 筛选/显示选项的变化
-    // [Gemini 修改] 移除了 filterThisWeek 和 filterNextWeek，它们需要特殊处理
+    // [Gemini 修改] 新增 displayPeopleCount 到监听列表
     [
         filterExcludeSent,
         filterOver10k,
-        displayRestaurant, displayLink, displayStatus, displayPhone, displayEmail
+        displayRestaurant, displayLink, displayStatus, displayPhone, displayEmail,
+        displayPeopleCount
     ].forEach(checkbox => {
         if (checkbox) { // 确保元素存在
             checkbox.addEventListener('change', updateDisplay);
         }
     });
 
-    // 3. [Gemini 修改] "本周" 和 "下周" 筛选的互斥逻辑和单独的监听
+    // 3. "本周" 和 "下周" 筛选的互斥逻辑和单独的监听
     if (filterThisWeek && filterNextWeek) {
         filterThisWeek.addEventListener('change', () => {
             if (filterThisWeek.checked) {
                 filterNextWeek.checked = false;
             }
-            // 在互斥逻辑完成后再调用更新
             updateDisplay();
         });
 
@@ -243,7 +250,6 @@
             if (filterNextWeek.checked) {
                 filterThisWeek.checked = false;
             }
-            // 在互斥逻辑完成后再调用更新
             updateDisplay();
         });
     }
@@ -344,6 +350,7 @@
             return String(h).replace(/\ufeff/g, '').trim();
         });
 
+        // 检查 'requiredCols' (现在包含 '预约人数')
         const missingCols = requiredCols.filter(col => !headers.includes(col));
         if (missingCols.length > 0) {
             console.log("找到的表头:", headers);
@@ -356,6 +363,8 @@
         let uniqueRestaurants = new Set();
         globalData = [];
         const colIndexMap = {};
+
+        // 这会
         requiredCols.forEach(reqCol => {
             const index = headers.indexOf(reqCol);
             if (index !== -1) {
@@ -384,6 +393,10 @@
                         uniqueRestaurants.add(trimmedRestaurantName);
                     }
                 }
+
+                // [Gemini 注释]
+                // 因为 '预约人数' 已经在 requiredCols 中,
+                // 下面的循环会自动将其从 row 复制到 normalizedRow
                 const normalizedRow = {};
                 for (const reqCol in colIndexMap) {
                     normalizedRow[reqCol] = row[colIndexMap[reqCol]];
@@ -449,6 +462,8 @@
         const bShowStatus = displayStatus.checked;
         const bShowPhone = displayPhone.checked;
         const bShowEmail = displayEmail.checked;
+        // [Gemini 新增] 获取“预约人数”的显示状态
+        const bShowPeopleCount = displayPeopleCount.checked;
 
 
         // --- D. 开始筛选 ---
@@ -471,8 +486,7 @@
             });
         }
 
-        // 3. 按“周”筛选 (本周和下周互斥)
-        // [Gemini 修改] 现在这里的 bThisWeek 和 bNextWeek 状态是正确的
+        // 3. 按“周”筛选
         if (bThisWeek) {
             const { start, end } = getThisWeekRange();
             filteredData = filteredData.filter(row => {
@@ -496,13 +510,15 @@
         }
 
         // --- E. 格式化输出 ---
+        // [Gemini 修改] 传入 bShowPeopleCount
         const resultString = formatDataToString(
             filteredData,
             bShowRestaurant,
             bShowLink,
             bShowStatus,
             bShowPhone,
-            bShowEmail
+            bShowEmail,
+            bShowPeopleCount
         );
 
         // F. 更新 UI
@@ -513,7 +529,8 @@
     /**
      * 5. 将筛选后的数据格式化为最终字符串
      */
-    function formatDataToString(data, showRestaurant, showLink, showStatus, showPhone, showEmail) {
+    // [Gemini 修改] 新增 showPeopleCount 参数
+    function formatDataToString(data, showRestaurant, showLink, showStatus, showPhone, showEmail, showPeopleCount) {
         if (data.length === 0) {
             return '没有找到匹配所选筛选条件的预约记录。';
         }
@@ -543,7 +560,7 @@
                 recordLines.push(`- 链接：${linkStr}`);
             }
 
-            // 5. 粉丝量 (始终显示)，并为 >= 10000 的添加五角星
+            // 5. 粉丝量 (始终显示)
             try {
                 const count = parseInt(row['小红书粉丝数'], 10);
                 let followerStr = isNaN(count) ? row['小红书粉丝数'] : numberFormatter.format(count);
@@ -557,7 +574,13 @@
                 recordLines.push(`- 粉丝量：${row['小红书粉丝数'] || '(错误)'}`);
             }
 
-            // 6. 状态 (条件显示)
+            // 6. [Gemini 新增] 预约人数 (条件显示)
+            if (showPeopleCount) {
+                const people = row['预约人数'];
+                recordLines.push(`- 预约人数：${people || '(空)'}`);
+            }
+
+            // 7. 状态 (条件显示)
             if (showStatus) {
                 const status = row['已发送给店家'];
                 let statusStr = "未知";
@@ -573,13 +596,13 @@
                 recordLines.push(`- 状态：${statusStr}`);
             }
 
-            // 7. 手机 (条件显示)
+            // 8. 手机 (条件显示)
             if (showPhone) {
                 const phone = row['手机'];
                 recordLines.push(`- 手机：${phone || '(空)'}`);
             }
 
-            // 8. 邮箱 (条件显示)
+            // 9. 邮箱 (条件显示)
             if (showEmail) {
                 const email = row['邮箱'];
                 recordLines.push(`- 邮箱：${email || '(空)'}`);
@@ -594,43 +617,29 @@
 
     // --- 辅助工具函数 ---
 
-    /**
-     * 获取“本周”的日期范围 (周一 00:00:00 到 周日 23:59:59)
-     */
     function getThisWeekRange() {
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // 标准化到今天的开始
-
-        const dayOfWeek = today.getDay(); // 0=周日, 1=周一, ..., 6=周六
+        today.setHours(0, 0, 0, 0);
+        const dayOfWeek = today.getDay();
         const daysToSubtract = (dayOfWeek === 0) ? 6 : (dayOfWeek - 1);
-
         const thisMonday = new Date(today.getTime());
         thisMonday.setDate(today.getDate() - daysToSubtract);
-
         const thisSunday = new Date(thisMonday.getTime());
         thisSunday.setDate(thisMonday.getDate() + 6);
         thisSunday.setHours(23, 59, 59, 999);
-
         return { start: thisMonday, end: thisSunday };
     }
 
-    /**
-     * 获取“下一周”的日期范围 (周一 00:00:00 到 周日 23:59:59)
-     */
     function getNextWeekRange() {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-
-        const dayOfWeek = today.getDay(); // 0=周日, 1=周一, ..., 6=周六
+        const dayOfWeek = today.getDay();
         const daysToAdd = (dayOfWeek === 0) ? 1 : (8 - dayOfWeek);
-
         const nextMonday = new Date(today.getTime());
         nextMonday.setDate(today.getDate() + daysToAdd);
-
         const nextSunday = new Date(nextMonday.getTime());
         nextSunday.setDate(nextMonday.getDate() + 6);
         nextSunday.setHours(23, 59, 59, 999);
-
         return { start: nextMonday, end: nextSunday };
     }
 
