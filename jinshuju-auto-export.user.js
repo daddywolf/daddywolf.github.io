@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         金数据自动导出助手 (拖拽增强版)
 // @namespace    http://tampermonkey.net/
-// @version      1.9
-// @description  自动在金数据导出 -> 自动清理旧任务 -> 跨域自动填充 [支持按钮拖拽与位置记忆]
+// @version      1.9.1
+// @description  自动在金数据导出 -> 自动清理旧任务 -> 跨域自动填充 [支持按钮拖拽与位置记忆] -> 修复导出菜单定位
 // @author       Gemini & You
 // @match        https://jinshuju.net/forms/*/entries
 // @match        https://daddywolf.github.io/*
@@ -148,7 +148,7 @@
     }
 
     async function runAutomation() {
-        console.log(">>> 脚本启动 V1.9 <<<");
+        console.log(">>> 脚本启动 V1.9.1 <<<");
         updateBtnState('🚀 正在运行...', 'running', false);
 
         // [Step 0] 清理旧任务
@@ -167,12 +167,19 @@
         }
 
         // [Step 1-4] 流程
+        // 1. 点击工具栏上的“导出”按钮（这里假设位置相对固定，或者你也想改成文字定位？）
         if (!await waitAndClick('//*[@id="entry-grid__toolbar"]/div/div[1]/div[9]/div/button', '菜单')) return;
         await sleep(500);
-        if (!await waitAndClick('/html/body/div[18]/div/div/div/ul/li[2]', '导出数据')) return;
+
+        // 2. 点击下拉菜单中的“导出数据” (已修改为文字匹配 Span)
+        if (!await waitAndClick('//span[contains(text(), "导出数据")]', '导出数据')) return;
         await sleep(1000);
+
+        // 3. 点击“确定” (建议也优化，但暂时保持原样)
         if (!await waitAndClick('//*[@id="export_job_modal"]/div/div/div[3]/div/a[1]', '确定')) return;
         await sleep(1000);
+
+        // 4. 点击隐私确认中的“继续”
         if (!await waitAndClick('//*[@id="export_privacy_confirm_modal"]/div/div/div[3]/div/a[2]', '继续')) return;
 
         // [Step 5] 监测
@@ -191,32 +198,21 @@
 
         // 鼠标按下
         el.addEventListener('mousedown', (e) => {
-            // 如果按钮是禁用状态，不允许拖动（可选，或者允许拖动但不允许点击）
-            // 这里我们允许拖动即使是禁用状态，方便调整位置
-
             isDragging = true;
             hasMoved = false;
-
-            // 计算鼠标点击点距离元素左上角的偏移量
             startX = e.clientX - el.offsetLeft;
             startY = e.clientY - el.offsetTop;
-
-            el.style.cursor = 'grabbing'; // 抓取手势
-            el.style.transition = 'none'; // 拖动时关闭过渡动画，防止延迟
+            el.style.cursor = 'grabbing';
+            el.style.transition = 'none';
         });
 
-        // 鼠标移动 (监听整个文档，防止鼠标移出按钮导致失效)
+        // 鼠标移动
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
-
-            e.preventDefault(); // 防止选中文字
+            e.preventDefault();
             hasMoved = true;
-
-            // 计算新位置
             const newLeft = e.clientX - startX;
             const newTop = e.clientY - startY;
-
-            // 应用新位置 (重要：要把 right 设为 auto，否则 left 不生效)
             el.style.left = `${newLeft}px`;
             el.style.top = `${newTop}px`;
             el.style.right = 'auto';
@@ -226,25 +222,22 @@
         // 鼠标松开
         document.addEventListener('mouseup', () => {
             if (!isDragging) return;
-
             isDragging = false;
-            el.style.cursor = !el.disabled ? 'pointer' : 'not-allowed'; // 恢复手势
-            el.style.transition = 'all 0.3s ease'; // 恢复动画
-
-            // 保存位置到本地存储
+            el.style.cursor = !el.disabled ? 'pointer' : 'not-allowed';
+            el.style.transition = 'all 0.3s ease';
             if (hasMoved) {
                 GM_setValue('btn_pos_left', el.style.left);
                 GM_setValue('btn_pos_top', el.style.top);
             }
         });
 
-        // 拦截点击事件：如果是拖拽行为，阻止原来的 onclick 触发
+        // 拦截点击事件
         el.addEventListener('click', (e) => {
             if (hasMoved) {
                 e.stopImmediatePropagation();
                 e.preventDefault();
             }
-        }, true); // 使用捕获模式，优先处理
+        }, true);
     }
 
     function addStartButton() {
@@ -254,23 +247,16 @@
         btn.id = CONFIG.btnId;
         btn.innerText = '开始自动导出';
 
-        // 读取上次保存的位置
         const savedLeft = GM_getValue('btn_pos_left', null);
-        const savedTop = GM_getValue('btn_pos_top', '10px'); // 默认 Top
-
-        // 如果没有保存过 Left，默认靠右 (right: 300px)，否则使用保存的 Left
-        // 这是一个小技巧：初始状态用 right 定位，一旦拖动过就变成 left 定位
+        const savedTop = GM_getValue('btn_pos_top', '10px');
         const initialRight = savedLeft ? 'auto' : '300px';
         const initialLeft = savedLeft || 'auto';
 
-        // CSS 样式美化
         Object.assign(btn.style, {
             position: 'fixed',
-            // --- 位置调整区 ---
             top: savedTop,
             left: initialLeft,
             right: initialRight,
-            // ----------------
             zIndex: '999999',
             padding: '12px 24px',
             background: CONFIG.colors.normal,
@@ -284,17 +270,13 @@
             transition: 'all 0.3s ease',
             outline: 'none',
             letterSpacing: '1px',
-            userSelect: 'none' // 禁止选中按钮文字
+            userSelect: 'none'
         });
 
-        // 绑定点击事件 (运行脚本)
         btn.onclick = () => {
-            // 注意：拖拽逻辑里的 click 拦截器会保护这里
-            // 只有当 hasMoved 为 false 时，这里才会执行
             runAutomation();
         };
 
-        // 鼠标悬停效果 (仅在未禁用时生效)
         btn.onmouseover = () => {
             if(!btn.disabled) {
                 btn.style.transform = 'scale(1.05)';
@@ -308,9 +290,7 @@
             }
         };
 
-        // 启用拖拽功能
         makeDraggable(btn);
-
         document.body.appendChild(btn);
     }
 
