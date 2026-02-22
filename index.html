@@ -693,7 +693,7 @@
             if (over10kCount > 0) {
                 blockStr += `，其中${over10kCount}位万粉博主`;
             }
-            blockStr += '\n'; // 换行，准备拼接具体博主信息
+            blockStr += '。详情如下：\n'; // 换行，准备拼接具体博主信息
 
             // 格式化该餐厅下的每一条预约记录
             const recordStrings = records.map(row => {
