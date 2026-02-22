@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>伦敦小红书博主探店预约解析器</title>
+    <title>艺熹专用博主探店预约解析器</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@
         <div class="flex items-center gap-3">
             <img src="https://s3.getstickerpack.com/storage/uploads/sticker-pack/xiong-mao-yi-erdi-shi-yi-dan-yi-er-2/sticker_3.gif?5cd401841fd0e7049c21f8e0ab80da99&d=80x80" class="w-12 h-12 md:w-16 md:h-16 rounded-full">
             <h1 class="text-lg md:text-xl font-bold text-slate-800 truncate hidden sm:block">
-                伦敦小红书博主探店预约解析器
+                艺熹专用博主探店预约解析器
             </h1>
         </div>
 
@@ -653,7 +653,7 @@
      */
     function formatDataToString(data, showRestaurant, showLink, showStatus, showPhone, showEmail, showPeopleCount, timeContext) {
         if (data.length === 0) {
-            return '没有找到匹配所选筛选条件的预约记录。\n（请确保在左侧列表勾选了你要查看的餐厅）';
+            return '没有找到匹配所选筛选条件的预约记录。';
         }
 
         // 1. 将数据按“预约餐厅”进行分组
@@ -706,7 +706,7 @@
                 recordLines.push(`- ${dateStr}${dayStr} ${timeStr}`);
 
                 if (showRestaurant) {
-                    recordLines.push(`- 餐厅：${row['预约餐厅'] || '(空)'}`);
+                    recordLines.push(`- 博主：${row['预约餐厅'] || '(空)'}`);
                 }
 
                 // 为了兼容 Instagram，可以将前缀改为“博主：”而不是固定的“小红书名”
