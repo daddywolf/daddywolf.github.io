@@ -35,7 +35,6 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
 
         <aside class="lg:col-span-4 space-y-6">
-
             <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
                 <div class="bg-slate-50 px-5 py-3 border-b border-slate-100 flex items-center gap-2">
                     <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">1</div>
@@ -78,7 +77,7 @@
                             <option value="">等待读取表格...</option>
                         </select>
                     </div>
-                    <p class="text-xs text-slate-400 mt-2">提示: 程序会自动匹配文件夹里的主流图片(JPG, PNG, GIF等)。表格里的名字带不带后缀都可以识别。</p>
+                    <p class="text-xs text-slate-400 mt-2">提示: 程序会自动匹配文件夹里的主流图片(JPG, PNG, GIF, <strong>WebP</strong>等)。表格里的名字带不带后缀都可以识别。</p>
                 </div>
             </div>
 
@@ -116,15 +115,14 @@
                 <div class="relative flex-grow bg-slate-50 p-4 overflow-hidden flex flex-col">
                     <div id="logArea" class="w-full h-full overflow-y-auto text-sm whitespace-pre-wrap font-mono custom-scrollbar p-3 leading-relaxed border border-slate-100 rounded-lg bg-white shadow-sm text-slate-600 space-y-1">
                         <div class="text-slate-400 flex items-center gap-2">
-<!--                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>-->
-<!--                            等待导入文件并开始...-->
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-        <div class="text-center mt-8 pb-4 text-slate-400 text-sm font-mono">
+
+    <div class="text-center mt-8 pb-4 text-slate-400 text-sm font-mono">
         JZP Exclusively Made For KYS
     </div>
 </div>
@@ -147,7 +145,7 @@
     const logArea = document.getElementById('logArea');
     const processBtn = document.getElementById('processBtn');
 
-    // --- 工具：将数字列号转换为 Excel 字母列号 (例如 1 -> A, 27 -> AA) ---
+    // --- 工具：将数字列号转换为 Excel 字母列号 ---
     function colIndexToLetter(index) {
         let letter = '';
         while (index > 0) {
@@ -202,7 +200,6 @@
                 hasColumns = true;
                 const option = document.createElement('option');
                 option.value = colNumber;
-                // 使用刚刚写的转换函数，将数字转换为字母
                 option.textContent = `第 ${colIndexToLetter(colNumber)} 列 - ${cell.text || '未命名列'}`;
                 columnSelect.appendChild(option);
             });
@@ -287,17 +284,14 @@
 
     // --- 全局重置功能 ---
     function resetApp() {
-        // 1. 清空数据
         currentWorkbook = null;
         currentWorksheet = null;
         globalExcelFile = null;
         globalImageFiles = [];
 
-        // 2. 清空 Input
         excelInput.value = '';
         folderInput.value = '';
 
-        // 3. 恢复 UI 状态
         excelFileName.textContent = "点击选择 或 拖拽Excel到此";
         excelFileName.classList.remove('text-indigo-600', 'font-bold');
 
@@ -307,12 +301,7 @@
         columnSelect.innerHTML = '<option value="">等待读取表格...</option>';
         columnSelect.disabled = true;
 
-        logArea.innerHTML = `
-            <div class="text-slate-400 flex items-center gap-2">
-<!--                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>-->
-<!--                数据已重置，等待导入新文件...-->
-            </div>
-        `;
+        logArea.innerHTML = `<div class="text-slate-400 flex items-center gap-2"></div>`;
 
         processBtn.disabled = false;
         processBtn.innerHTML = `
@@ -338,11 +327,10 @@
 
         if (logArea.innerHTML.includes('等待导入')) logArea.innerHTML = '';
         logArea.appendChild(logItem);
-        // 自动滚动到底部
         logArea.scrollTop = logArea.scrollHeight;
     }
 
-    // --- 图片压缩与方向纠正 ---
+    // --- 图片压缩、格式转换(支持WebP/PNG转JPG)与方向纠正 ---
     function processAndResizeImage(file) {
         return new Promise((resolve, reject) => {
             const img = new Image();
@@ -358,8 +346,17 @@
                 const canvas = document.createElement('canvas');
                 canvas.width = width; canvas.height = height;
                 const ctx = canvas.getContext('2d');
+
+                // 绘制纯白背景，防止带透明通道的PNG/WebP转JPG后背景变黑
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, width, height);
                 ctx.drawImage(img, 0, 0, width, height);
-                resolve(canvas.toDataURL('image/jpeg', 0.95));
+
+                // 统一转成 jpeg，并去掉 "data:image/jpeg;base64," 前缀，以便 exceljs 完美兼容
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                const base64Clean = dataUrl.split(',')[1];
+
+                resolve(base64Clean);
             };
             img.onerror = reject;
             img.src = url;
@@ -404,18 +401,31 @@
             // 2. 遍历 Excel 行
             for (let rowNumber = 2; rowNumber <= currentWorksheet.rowCount; rowNumber++) {
                 const row = currentWorksheet.getRow(rowNumber);
+
+                // 【核心修复】：基于“整行是否有数据”来判断是否属于空行，而不是只看被替换的图片列
+                if (!row.hasValues) {
+                    emptyCount++;
+                    if (emptyCount >= 20) {
+                        log(`在第 ${rowNumber} 行检测到连续 20 行彻底无任何数据，安全结束扫描。`, "system");
+                        break;
+                    }
+                    continue; // 真正空行，跳过当前循环
+                }
+
+                // 只要这行有其他数据，连续空行熔断机制就归零
+                emptyCount = 0;
+
                 const cell = row.getCell(targetColIndex);
                 const cellValue = cell.text ? cell.text.toString().trim() : "";
 
                 if (cellValue) {
-                    emptyCount = 0;
                     const matchedFile = imageMap[cellValue] || imageMap[cellValue.toLowerCase()];
 
                     if (matchedFile) {
                         log(`正在处理图: ${matchedFile.name} ...`);
                         row.height = 80;
                         const base64Data = await processAndResizeImage(matchedFile);
-                        cell.value = "";
+                        cell.value = ""; // 清空原有的文字
 
                         const imageId = currentWorkbook.addImage({ base64: base64Data, extension: 'jpeg' });
                         currentWorksheet.addImage(imageId, {
@@ -427,13 +437,6 @@
                     } else {
                         log(`跳过第 ${rowNumber} 行：未找到名称匹配 "${cellValue}" 的图片`, "warn");
                     }
-                } else {
-                    emptyCount++;
-                }
-
-                if (emptyCount >= 20) {
-                    log("连续 20 行无数据，跳出循环。", "system");
-                    break;
                 }
             }
 
@@ -464,6 +467,5 @@
         }
     }
 </script>
-
 </body>
 </html>
