@@ -12,7 +12,6 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc; /* Slate-50 */
         }
-
         /* 自定义滚动条 */
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
@@ -29,14 +28,12 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-
         /* 选中状态的卡片样式 */
         .checkbox-card:has(input:checked) {
             background-color: #eff6ff; /* blue-50 */
             border-color: #3b82f6; /* blue-500 */
             color: #1e40af; /* blue-800 */
         }
-
         /* 移动端优化 */
         @media (max-width: 768px) {
             .container {
@@ -56,7 +53,6 @@
                 伦敦博主探店预约解析器
             </h1>
         </div>
-
         <div class="flex items-center gap-2">
             <a href="https://jinshuju.net/forms/PdJXLA/entries" target="_blank" rel="noopener noreferrer"
                class="text-xs md:text-sm font-medium text-pink-600 hover:text-pink-800 bg-pink-50 hover:bg-pink-100 px-3 py-2 rounded-full transition-colors duration-200 flex items-center gap-1 border border-transparent hover:border-pink-200">
@@ -65,7 +61,6 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                 </svg>
             </a>
-
             <a href="https://jinshuju.net/forms/Mhc1wf/entries" target="_blank" rel="noopener noreferrer"
                class="text-xs md:text-sm font-medium text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-3 py-2 rounded-full transition-colors duration-200 flex items-center gap-1 border border-transparent hover:border-indigo-200">
                <span>小红书后台</span>
@@ -78,15 +73,13 @@
 </div>
 
 <div class="container mx-auto max-w-6xl py-6 md:py-8 flex-grow">
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         <aside class="lg:col-span-4 space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
                 <div class="bg-slate-50 px-5 py-3 border-b border-slate-100 flex items-center gap-2">
                     <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold">1</div>
                     <h3 class="font-semibold text-slate-700">数据源</h3>
                 </div>
-
                 <div class="p-5 space-y-5">
                     <div>
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">A. 在线文件 URL</label>
@@ -105,13 +98,11 @@
                             </span>
                         </button>
                     </div>
-
                     <div class="relative flex py-1 items-center">
                         <div class="flex-grow border-t border-slate-200"></div>
                         <span class="flex-shrink-0 mx-4 text-slate-300 text-xs font-medium">OR</span>
                         <div class="flex-grow border-t border-slate-200"></div>
                     </div>
-
                     <div>
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">B. 本地 Excel/CSV</label>
                         <label id="drop-zone" class="flex flex-col items-center justify-center w-full h-24 border-2 border-slate-300 border-dashed rounded-xl cursor-pointer bg-slate-50 hover:bg-slate-100 transition-all duration-200">
@@ -122,7 +113,6 @@
                             <input type="file" id="file-upload" class="hidden" accept=".xlsx, .xls, .csv" />
                         </label>
                     </div>
-
                     <div id="loading-spinner" class="hidden flex items-center justify-center text-sm text-blue-600 gap-2 bg-blue-50 p-2 rounded-lg">
                         <svg class="animate-spin h-4 w-4 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                         正在解析...
@@ -157,7 +147,6 @@
                      <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">3</div>
                      <h3 class="font-semibold text-slate-700">筛选与显示</h3>
                 </div>
-
                 <div class="p-4">
                     <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">数据过滤</p>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
@@ -188,7 +177,6 @@
                             </svg>
                             餐厅
                         </label>
-
                         <label class="group inline-flex items-center px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm font-medium text-slate-600 cursor-pointer hover:bg-slate-50 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-700 has-[:checked]:border-indigo-200 transition-all">
                             <input type="checkbox" id="display-link" checked class="hidden peer">
                             <svg class="w-4 h-4 mr-1.5 text-slate-400 group-has-[:checked]:text-indigo-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -196,7 +184,6 @@
                             </svg>
                             链接
                         </label>
-
                         <label class="group inline-flex items-center px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm font-medium text-slate-600 cursor-pointer hover:bg-slate-50 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-700 has-[:checked]:border-indigo-200 transition-all">
                             <input type="checkbox" id="display-people-count" checked class="hidden peer">
                             <svg class="w-4 h-4 mr-1.5 text-slate-400 group-has-[:checked]:text-indigo-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -204,7 +191,6 @@
                             </svg>
                             人数
                         </label>
-
                         <label class="group inline-flex items-center px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm font-medium text-slate-600 cursor-pointer hover:bg-slate-50 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-700 has-[:checked]:border-indigo-200 transition-all">
                             <input type="checkbox" id="display-status" class="hidden peer">
                             <svg class="w-4 h-4 mr-1.5 text-slate-400 group-has-[:checked]:text-indigo-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -212,7 +198,6 @@
                             </svg>
                             状态
                         </label>
-
                         <label class="group inline-flex items-center px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm font-medium text-slate-600 cursor-pointer hover:bg-slate-50 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-700 has-[:checked]:border-indigo-200 transition-all">
                             <input type="checkbox" id="display-phone" class="hidden peer">
                             <svg class="w-4 h-4 mr-1.5 text-slate-400 group-has-[:checked]:text-indigo-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -220,7 +205,6 @@
                             </svg>
                             手机
                         </label>
-
                         <label class="group inline-flex items-center px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm font-medium text-slate-600 cursor-pointer hover:bg-slate-50 has-[:checked]:bg-indigo-50 has-[:checked]:text-indigo-700 has-[:checked]:border-indigo-200 transition-all">
                             <input type="checkbox" id="display-email" class="hidden peer">
                             <svg class="w-4 h-4 mr-1.5 text-slate-400 group-has-[:checked]:text-indigo-600 transition-colors" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -234,7 +218,7 @@
         </aside>
 
         <main class="lg:col-span-8 flex flex-col h-full">
-            <div class="bg-white rounded-xl shadow-lg border border-slate-200 flex flex-col flex-grow overflow-hidden">
+            <div class="bg-white rounded-xl shadow-lg border border-slate-200 flex flex-col h-full overflow-hidden">
                 <div class="bg-white px-5 py-3 border-b border-slate-100 flex items-center justify-between flex-shrink-0 h-16">
                     <h2 id="results-label" class="text-lg font-semibold text-slate-800 flex items-center gap-2 truncate mr-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-indigo-500 flex-shrink-0">
@@ -251,11 +235,12 @@
                         <span class="sm:hidden">复制</span>
                     </button>
                 </div>
-                <div class="relative flex-grow bg-slate-50 p-4 overflow-hidden flex flex-col">
+
+                <div class="relative flex-grow bg-slate-50 overflow-hidden min-h-[300px]">
                     <pre id="results-output"
-                         class="w-full h-full overflow-y-auto text-sm text-slate-700 whitespace-pre-wrap font-mono custom-scrollbar p-2 leading-relaxed select-all border border-slate-100 rounded-lg bg-white shadow-sm"
-                         style="min-height: 300px;"></pre>
+                         class="absolute inset-4 overflow-auto text-sm text-slate-700 whitespace-pre-wrap font-mono custom-scrollbar p-3 leading-relaxed select-all border border-slate-100 rounded-lg bg-white shadow-sm"></pre>
                 </div>
+
             </div>
         </main>
     </div>
@@ -588,7 +573,7 @@
             );
         } else {
             // 如果没选餐厅，则默认不显示任何数据，或者你可以改为默认显示所有
-            filteredData = []; 
+            filteredData = [];
         }
 
         // 2. 排除已发送
@@ -693,7 +678,7 @@
             if (over10kCount > 0) {
                 blockStr += `，其中${over10kCount}位万粉博主`;
             }
-            blockStr += '。详情如下：\n'; // 换行，准备拼接具体博主信息
+            blockStr += '。详情如下：\n\n'; // 换行，准备拼接具体博主信息
 
             // 格式化该餐厅下的每一条预约记录
             const recordStrings = records.map(row => {
@@ -723,7 +708,7 @@
                     let followerStr = isNaN(count) ? row['小红书粉丝数'] : numberFormatter.format(count);
 
                     if (!isNaN(count) && count >= 10000) {
-                        followerStr += ' ⭐️'; 
+                        followerStr += ' ⭐️';
                     }
                     recordLines.push(`- 粉丝量：${followerStr || '0'}`);
                 } catch (e) {
@@ -826,21 +811,21 @@
     }
 
     function showCopyFeedback(button, messageHTML, isError = false) {
-        const originalHTML = button.innerHTML; 
+        const originalHTML = button.innerHTML;
         const originalClasses = button.className;
 
         button.innerHTML = messageHTML;
         button.className = originalClasses.replace(/bg-emerald-600|hover:bg-emerald-700|bg-red-600/g, '');
 
         if(isError) {
-             button.classList.add('bg-red-600', 'text-white');
+            button.classList.add('bg-red-600', 'text-white');
         } else {
-             button.classList.add('bg-slate-600', 'text-white');
+            button.classList.add('bg-slate-600', 'text-white');
         }
 
         button.disabled = true;
         setTimeout(() => {
-            button.innerHTML = originalHTML; 
+            button.innerHTML = originalHTML;
             button.className = originalClasses;
             button.disabled = false;
         }, 1500);
