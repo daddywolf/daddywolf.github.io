@@ -50,14 +50,16 @@
                 当前正在管理的题库是：<span id="current-bank-name" class="font-bold text-blue-600"></span><br>
                 题库进度互相独立。导入进度时，系统会校验文件是否属于当前题库。
             </p>
-            <div class="flex flex-wrap gap-3 items-center">
-                <button onclick="exportProgress()" class="bg-green-600 text-white px-4 py-2 rounded shadow-sm hover:bg-green-700 font-bold flex items-center gap-1 transition">⬇️ 导出当前进度</button>
+            <div class="flex flex-wrap gap-2 items-center">
+                <button onclick="exportProgress()" class="bg-green-600 text-white px-3 py-2 rounded shadow-sm hover:bg-green-700 font-bold flex items-center gap-1 transition">⬇️ 导出进度</button>
                 <div class="relative overflow-hidden inline-block">
-                    <button class="bg-yellow-500 text-white px-4 py-2 rounded shadow-sm hover:bg-yellow-600 font-bold flex items-center gap-1 transition">⬆️ 导入进度文件</button>
+                    <button class="bg-yellow-500 text-white px-3 py-2 rounded shadow-sm hover:bg-yellow-600 font-bold flex items-center gap-1 transition">⬆️ 导入进度</button>
                     <input type="file" id="import-file" accept=".json" onchange="importProgress(event)" class="absolute left-0 top-0 opacity-0 cursor-pointer w-full h-full">
                 </div>
+                <button onclick="exportWrongQuestions()" class="bg-purple-600 text-white px-3 py-2 rounded shadow-sm hover:bg-purple-700 font-bold flex items-center gap-1 transition">📦 导出错题本(.js)</button>
+                
                 <div class="flex-1 text-right">
-                    <button onclick="clearProgress()" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded hover:bg-red-100 border border-red-200 transition">⚠️ 清空当前题库</button>
+                    <button onclick="clearProgress()" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded hover:bg-red-100 border border-red-200 transition">⚠️ 清空当前进度</button>
                 </div>
             </div>
         </div>
@@ -79,23 +81,17 @@
 
     <script>
         // ================= 1. 题库清单配置区 =================
-        // 如果你上传了新的 JS 文件，只需要在这里加一行！
-        // 格式： '唯一ID': { name: '显示在下拉框的名字', file: '文件名.js' }
         const AVAILABLE_BANKS = {
             'data': { name: '内部源题库 (data.js)', file: 'data.js' },
-            'examtopics': { name: 'ExamTopics 题库', file: 'examtopics.js' },
-            // 'osg': { name: 'OSG 官方练习题', file: 'osg.js' } // 以后有新题库取消注释即可
+            'examtopics': { name: 'ExamTopics 题库', file: 'examtopics.js' }
         };
 
-        // 获取当前题库，默认使用第一个
         let currentBankId = localStorage.getItem('ccsp_active_bank') || 'data';
-        // 防错机制：如果旧缓存的ID被删除了，回退到默认
         if (!AVAILABLE_BANKS[currentBankId]) currentBankId = 'data';
 
-        // 动态加载对应的 JS 文件
         const script = document.createElement('script');
         script.src = AVAILABLE_BANKS[currentBankId].file;
-        script.onload = () => initApp(); // 加载成功后初始化系统
+        script.onload = () => initApp(); 
         script.onerror = () => {
             document.getElementById('question-container').innerHTML = `
                 <div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
@@ -113,24 +109,21 @@
         let currentList = []; 
         let listIndex = 0;    
 
-        // 为不同的题库分配独立的 localStorage Key
         const storageKey = `ccsp_progress_${currentBankId}`;
 
         // ================= 3. 系统初始化 =================
         function initApp() {
-            // 渲染顶部下拉框
             const bankSelector = document.getElementById('bank-selector');
             bankSelector.innerHTML = Object.keys(AVAILABLE_BANKS).map(key => 
                 `<option value="${key}" ${key === currentBankId ? 'selected' : ''}>📚 ${AVAILABLE_BANKS[key].name}</option>`
             ).join('');
             document.getElementById('current-bank-name').innerText = AVAILABLE_BANKS[currentBankId].name;
 
-            // 获取数据
             qData = typeof questionsData !== 'undefined' ? questionsData : [];
             userProgress = JSON.parse(localStorage.getItem(storageKey)) || {}; 
 
             if (qData.length === 0) {
-                document.getElementById('question-container').innerHTML = `<div class="p-4 bg-yellow-50 text-yellow-700 rounded-lg">此题库文件（${AVAILABLE_BANKS[currentBankId].file}）中没有解析到有效数据。</div>`;
+                document.getElementById('question-container').innerHTML = `<div class="p-4 bg-yellow-50 text-yellow-700 rounded-lg">此题库文件中没有解析到有效数据。</div>`;
                 return;
             }
 
@@ -138,10 +131,9 @@
             applyFilter('all'); 
         }
 
-        // 切换题库：记录选择并刷新页面
         function switchBank(bankId) {
             localStorage.setItem('ccsp_active_bank', bankId);
-            location.reload(); // 刷新页面以完全清理内存并重新加载新JS
+            location.reload(); 
         }
 
         // ================= 4. 模式筛选引擎 =================
@@ -181,7 +173,7 @@
             document.getElementById('question-container').innerHTML = `
                 <div class="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300">
                     <h2 class="text-xl font-bold text-gray-700">${msg}</h2>
-                    <p class="text-gray-500 mt-4 text-sm cursor-pointer hover:text-blue-500" onclick="document.getElementById('filter-selector').value='all'; applyFilter('all');">👉 点击返回全部题目</p>
+                    <p class="text-blue-500 mt-4 text-sm cursor-pointer hover:underline" onclick="document.getElementById('filter-selector').value='all'; applyFilter('all');">👉 点击返回全部题目</p>
                 </div>
             `;
             document.getElementById('btn-prev').disabled = true;
@@ -349,29 +341,61 @@
             document.getElementById('count-wrong').innerText = wrong;
         }
 
-        // ================= 7. 数据存档与安全校验逻辑 =================
+        // ================= 7. 数据存档与导出逻辑 =================
         function toggleDataPanel() { document.getElementById('data-panel').classList.toggle('hidden'); }
         
-        // 导出：带上题库签名
         function exportProgress() {
-            // 将进度打包为一个带有题库标识的信封
-            const exportData = {
-                bankId: currentBankId,
-                timestamp: new Date().toISOString(),
-                progress: userProgress
-            };
+            const exportData = { bankId: currentBankId, timestamp: new Date().toISOString(), progress: userProgress };
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData));
             const dlAnchorElem = document.createElement('a');
             dlAnchorElem.setAttribute("href", dataStr);
-            
-            // 文件名动态跟随当前题库和日期
             const dateStr = new Date().toISOString().slice(0,10);
             dlAnchorElem.setAttribute("download", `${currentBankId}_progress_${dateStr}.json`);
             dlAnchorElem.click();
             dlAnchorElem.remove();
         }
 
-        // 导入：拦截非法替换
+        // 🌟 新增：导出纯错题为 .js 题库文件
+        function exportWrongQuestions() {
+            const wrongQuestions = [];
+            
+            // 扫描原题库，提取被标记为错题的题目
+            qData.forEach(q => {
+                const qId = q["题号"];
+                const progress = userProgress[qId];
+                if (progress && progress.status === 'wrong') {
+                    // 深拷贝题目对象，并追加“用户错选”字段
+                    const exportQ = { 
+                        ...q, 
+                        "用户错选": progress.selected 
+                    };
+                    wrongQuestions.push(exportQ);
+                }
+            });
+
+            if (wrongQuestions.length === 0) {
+                alert("太棒了！当前题库中没有错题，无需导出！🎉");
+                return;
+            }
+
+            // 格式化为 js 变量代码
+            // 使用 JSON.stringify 的第三个参数 4 进行漂亮的缩进格式化
+            const jsContent = "const questionsData = " + JSON.stringify(wrongQuestions, null, 4) + ";\n";
+            
+            // 触发下载
+            const dataStr = "data:text/javascript;charset=utf-8," + encodeURIComponent(jsContent);
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            const dateStr = new Date().toISOString().slice(0,10);
+            
+            // 下载文件名为 bankID_wrong_questions_日期.js
+            dlAnchorElem.setAttribute("download", `${currentBankId}_wrong_questions_${dateStr}.js`);
+            dlAnchorElem.click();
+            dlAnchorElem.remove();
+            
+            alert(`✅ 成功导出 ${wrongQuestions.length} 道错题！`);
+        }
+
         function importProgress(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -379,17 +403,14 @@
             reader.onload = function(e) {
                 try {
                     const imported = JSON.parse(e.target.result);
-                    
-                    // 新存档验证机制 (防御性编程)
                     if (imported.bankId) {
                         if (imported.bankId !== currentBankId) {
                             alert(`🚨 导入失败！\n\n该进度文件属于【${AVAILABLE_BANKS[imported.bankId]?.name || imported.bankId}】，而你当前打开的是【${AVAILABLE_BANKS[currentBankId].name}】。\n\n请在左上角切换到正确题库后再导入！`);
-                            document.getElementById('import-file').value = ""; // 清除上传记录
+                            document.getElementById('import-file').value = ""; 
                             return;
                         }
                         userProgress = imported.progress;
                     } else {
-                        // 兼容你之前导出的旧版本没有 bankId 的老进度
                         if (confirm("⚠️ 检测到这是旧版本的进度文件，未包含题库标签。\n\n系统将尝试将其强行导入当前的【" + AVAILABLE_BANKS[currentBankId].name + "】。是否继续？")) {
                             userProgress = imported;
                         } else {
