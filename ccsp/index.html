@@ -22,28 +22,36 @@
             </div>
         </div>
         
-        <div class="max-w-3xl mx-auto px-4 py-2 bg-gray-50 flex items-center justify-between border-b">
-            <div class="flex items-center gap-2 flex-1">
-                <span class="text-sm text-gray-500 font-bold whitespace-nowrap">快速定位:</span>
-                <select id="q-selector" onchange="jumpToQuestion(this.value)" class="flex-1 p-2 border rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div class="max-w-3xl mx-auto px-3 py-2 bg-gray-50 flex items-center justify-between border-b gap-2">
+            
+            <div class="flex items-center gap-2 flex-1 overflow-hidden">
+                <select id="filter-selector" onchange="applyFilter(this.value)" class="p-2 border-2 border-blue-200 rounded-md bg-white text-sm focus:outline-none focus:border-blue-500 font-bold text-blue-700 w-28 shrink-0">
+                    <option value="all">全部题目</option>
+                    <option value="todo">未做题目</option>
+                    <option value="wrong">📌 错题本</option>
+                    <option value="correct">已做对</option>
+                </select>
+                
+                <select id="q-selector" onchange="jumpToQuestion(this.value)" class="flex-1 p-2 border rounded-md bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 truncate">
                 </select>
             </div>
-            <div class="ml-4 text-xs text-gray-500 flex flex-col items-end">
-                <span>✅ 正确: <span id="count-correct" class="text-green-600 font-bold">0</span></span>
-                <span>❌ 错误: <span id="count-wrong" class="text-red-600 font-bold">0</span></span>
+
+            <div class="ml-2 text-xs text-gray-500 flex flex-col items-end shrink-0">
+                <span>✅ <span id="count-correct" class="text-green-600 font-bold">0</span></span>
+                <span>❌ <span id="count-wrong" class="text-red-600 font-bold">0</span></span>
             </div>
         </div>
 
         <div id="data-panel" class="hidden max-w-3xl mx-auto px-4 py-4 bg-white border-b text-sm shadow-inner">
             <p class="text-gray-500 mb-4 text-xs leading-relaxed">你的答题进度实时保存在当前浏览器缓存中。为防止丢失，或需要到其他设备上继续刷题，请使用下方功能导出/导入 <b>.json</b> 进度文件。</p>
             <div class="flex flex-wrap gap-3 items-center">
-                <button onclick="exportProgress()" class="bg-green-600 text-white px-4 py-2 rounded shadow-sm hover:bg-green-700 font-bold flex items-center gap-1 transition">⬇️ 导出进度文件</button>
+                <button onclick="exportProgress()" class="bg-green-600 text-white px-4 py-2 rounded shadow-sm hover:bg-green-700 font-bold flex items-center gap-1 transition">⬇️ 导出进度</button>
                 <div class="relative overflow-hidden inline-block">
-                    <button class="bg-yellow-500 text-white px-4 py-2 rounded shadow-sm hover:bg-yellow-600 font-bold flex items-center gap-1 transition">⬆️ 导入进度文件</button>
+                    <button class="bg-yellow-500 text-white px-4 py-2 rounded shadow-sm hover:bg-yellow-600 font-bold flex items-center gap-1 transition">⬆️ 导入进度</button>
                     <input type="file" id="import-file" accept=".json" onchange="importProgress(event)" class="absolute left-0 top-0 opacity-0 cursor-pointer w-full h-full">
                 </div>
                 <div class="flex-1 text-right">
-                    <button onclick="clearProgress()" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded hover:bg-red-100 border border-red-200 transition">⚠️ 清空所有进度</button>
+                    <button onclick="clearProgress()" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded hover:bg-red-100 border border-red-200 transition">⚠️ 清空所有</button>
                 </div>
             </div>
         </div>
@@ -57,7 +65,7 @@
     <footer class="bg-white border-t shrink-0 p-3 shadow-[0_-2px_10px_rgba(0,0,0,0.02)]">
         <div class="max-w-3xl mx-auto flex justify-between items-center">
             <button onclick="prevQuestion()" id="btn-prev" class="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-bold transition disabled:opacity-50">⬅️ 上一题</button>
-            <span id="page-indicator" class="text-sm font-bold text-gray-500">1 / 100</span>
+            <span id="page-indicator" class="text-sm font-bold text-gray-500">0 / 0</span>
             <button onclick="nextQuestion()" id="btn-next" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold shadow-md transition disabled:opacity-50">下一题 ➡️</button>
         </div>
     </footer>
@@ -67,23 +75,76 @@
     <script>
         let userProgress = JSON.parse(localStorage.getItem('ccsp_progress')) || {}; 
         let qData = typeof questionsData !== 'undefined' ? questionsData : [];
-        let currentIndex = 0;
+        
+        // 新增状态：当前过滤模式下的题目列表和索引
+        let currentFilter = 'all'; 
+        let currentList = []; // 存放当前模式下允许显示的题目在 qData 中的索引
+        let listIndex = 0;    // 当前题目在 currentList 中的位置
 
         window.onload = () => {
             if (qData.length === 0) {
                 document.getElementById('question-container').innerHTML = `<div class="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">未读取到题目数据！请确保 data.js 文件配置正确并与本网页在同一文件夹下。</div>`;
                 return;
             }
-            // 默认跳到第一道未做的题目
-            const firstUnansweredIndex = qData.findIndex(q => !userProgress[q["题号"]]);
-            if (firstUnansweredIndex !== -1) currentIndex = firstUnansweredIndex;
-            
             updateStats();
-            renderSelector();
-            renderQuestion(currentIndex);
+            applyFilter('all'); // 初始化时加载全部题目
         };
 
-        // 拆分题目和选项文本
+        // ================= 核心：模式筛选引擎 =================
+        function applyFilter(type) {
+            currentFilter = type;
+            currentList = [];
+            
+            // 根据条件筛选题目索引
+            qData.forEach((q, idx) => {
+                const status = userProgress[q["题号"]]?.status;
+                if (type === 'all') {
+                    currentList.push(idx);
+                } else if (type === 'todo' && !status) {
+                    currentList.push(idx);
+                } else if (type === 'wrong' && status === 'wrong') {
+                    currentList.push(idx);
+                } else if (type === 'correct' && status === 'correct') {
+                    currentList.push(idx);
+                }
+            });
+
+            // 空状态处理 (比如错题本里没有错题)
+            if (currentList.length === 0) {
+                renderEmptyState(type);
+                return;
+            }
+
+            // 智能定位：如果是"全部题目"，自动跳到第一道没做的题
+            listIndex = 0;
+            if (type === 'all') {
+                const firstTodoIdx = currentList.findIndex(i => !userProgress[qData[i]["题号"]]?.status);
+                if (firstTodoIdx !== -1) listIndex = firstTodoIdx;
+            }
+
+            renderSelector();
+            renderQuestion(currentList[listIndex]);
+        }
+
+        function renderEmptyState(type) {
+            let msg = "";
+            if (type === 'wrong') msg = "太棒了！你目前没有错题 🎉";
+            else if (type === 'todo') msg = "牛逼！所有题目都做完了 🏆";
+            else if (type === 'correct') msg = "当前还没有做对的题目，加油！💪";
+
+            document.getElementById('question-container').innerHTML = `
+                <div class="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300">
+                    <h2 class="text-xl font-bold text-gray-700">${msg}</h2>
+                    <p class="text-gray-500 mt-4 text-sm cursor-pointer hover:text-blue-500" onclick="document.getElementById('filter-selector').value='all'; applyFilter('all');">👉 点击返回全部题目</p>
+                </div>
+            `;
+            document.getElementById('btn-prev').disabled = true;
+            document.getElementById('btn-next').disabled = true;
+            document.getElementById('page-indicator').innerText = `0 / 0`;
+            document.getElementById('q-selector').innerHTML = `<option>无题目</option>`;
+        }
+
+        // ================= 文本与渲染逻辑 =================
         function parseQuestionText(text) {
             let qText = text;
             let options = null;
@@ -109,9 +170,9 @@
             return { qText, options };
         }
 
-        function renderQuestion(index) {
+        function renderQuestion(realIndex) {
             const container = document.getElementById('question-container');
-            const q = qData[index];
+            const q = qData[realIndex];
             const qId = q["题号"];
             const progress = userProgress[qId] || {};
             const isAnswered = !!progress.status;
@@ -122,7 +183,6 @@
             let optionsHTML = '';
             const opts = ['A', 'B', 'C', 'D'];
             
-            // 正常渲染选项卡片
             if (chnParsed.options) {
                 optionsHTML = `<div class="flex flex-col gap-3 mt-6">`;
                 opts.forEach(opt => {
@@ -142,9 +202,8 @@
                 });
                 optionsHTML += `</div>`;
             } else {
-                // OCR 解析失败的兜底按钮
                 optionsHTML = `
-                    <div class="mt-6 text-sm text-red-400">⚠️ OCR 排版异常，无法自动分离选项，请阅读上方文本后点击对应字母。</div>
+                    <div class="mt-6 text-sm text-red-400">⚠️ OCR 排版异常，请阅读上方文本后点击对应字母。</div>
                     <div class="grid grid-cols-4 gap-3 mt-2">
                         ${opts.map(opt => `
                             <button onclick="answerQuestion('${qId}', '${opt}', '${q["答案"]}')" ${isAnswered ? 'disabled' : ''}
@@ -157,7 +216,7 @@
             container.innerHTML = `
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="bg-blue-50 px-5 py-3 border-b border-blue-100 flex justify-between items-center text-sm">
-                        <span class="font-bold text-blue-800">题目 #${qId} <span class="font-normal text-blue-500 ml-2">PDF 源文件页码: ${q["来源页码"] || '-'}</span></span>
+                        <span class="font-bold text-blue-800">题目 #${qId} <span class="font-normal text-blue-500 ml-2">源文件页码: ${q["来源页码"] || '-'}</span></span>
                         ${isAnswered ? `<button onclick="resetQuestion('${qId}')" class="text-gray-500 hover:text-blue-600 bg-white px-2 py-1 rounded border shadow-sm transition">🔄 重做此题</button>` : ''}
                     </div>
                     
@@ -167,7 +226,7 @@
                         
                         ${optionsHTML}
                         
-                        <div id="exp-box" class="${progress.status === 'wrong' ? 'block' : 'hidden'} mt-6 p-4 bg-red-50 text-red-800 rounded-xl border border-red-200">
+                        <div class="${progress.status === 'wrong' ? 'block' : 'hidden'} mt-6 p-4 bg-red-50 text-red-800 rounded-xl border border-red-200">
                             <div class="font-bold mb-1 flex items-center gap-2">❌ 回答错误！</div>
                             <div class="text-sm">您的选择是 <span class="font-bold text-lg">${progress.selected}</span> ，本题的正确答案是 <span class="font-bold text-lg text-green-600">${q["答案"]}</span>。</div>
                         </div>
@@ -175,15 +234,14 @@
                 </div>
             `;
 
-            // 更新页脚和下拉框状态
-            document.getElementById('btn-prev').disabled = index === 0;
-            document.getElementById('btn-next').disabled = index === qData.length - 1;
-            document.getElementById('page-indicator').innerText = `${index + 1} / ${qData.length}`;
-            document.getElementById('q-selector').value = index;
+            // 更新页脚状态 (基于当前模式列表 currentList)
+            document.getElementById('btn-prev').disabled = listIndex === 0;
+            document.getElementById('btn-next').disabled = listIndex === currentList.length - 1;
+            document.getElementById('page-indicator').innerText = `${listIndex + 1} / ${currentList.length}`;
+            document.getElementById('q-selector').value = listIndex; // 下拉框绑定的也是 listIndex
             document.getElementById('main-content').scrollTop = 0;
         }
 
-        // 按钮颜色逻辑
         function getOptionClass(opt, selected, correct, isAnswered) {
             if (!isAnswered) return "bg-white border-gray-200 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:shadow-md cursor-pointer";
             if (opt === correct) return "bg-green-500 border-green-600 text-white shadow-md"; 
@@ -191,7 +249,7 @@
             return "bg-gray-50 border-gray-100 text-gray-400 opacity-50 cursor-not-allowed"; 
         }
 
-        // 答题核心逻辑
+        // ================= 交互逻辑 =================
         function answerQuestion(qId, selectedOpt, correctOpt) {
             const isCorrect = (selectedOpt.trim().toUpperCase() === correctOpt.trim().toUpperCase());
             
@@ -202,41 +260,42 @@
             
             localStorage.setItem('ccsp_progress', JSON.stringify(userProgress));
             updateStats();
+            
+            // 注意：不在这里调用 applyFilter，防止用户做对一道错题后，题目突然消失导致突兀。
+            // 只是重新渲染当前题目和下拉框图标
             renderSelector(); 
-            renderQuestion(currentIndex); 
+            renderQuestion(currentList[listIndex]); 
 
-            // 答对自动跳转
             if (isCorrect) {
                 setTimeout(() => {
-                    if (currentIndex < qData.length - 1) {
+                    if (listIndex < currentList.length - 1) {
                         nextQuestion();
                     } else {
-                        alert("🎉 恭喜你！所有题目都已刷完！");
+                        alert(currentFilter === 'wrong' ? "🎉 太棒了，错题本已刷到底部！" : "🎉 恭喜你！所有题目都已刷完！");
                     }
                 }, 600);
             } 
-            // 答错无需再执行额外操作，renderQuestion 内部会自动显示提示框
         }
 
-        // 重置、翻页、跳转
         function resetQuestion(qId) {
             delete userProgress[qId];
             localStorage.setItem('ccsp_progress', JSON.stringify(userProgress));
             updateStats();
             renderSelector();
-            renderQuestion(currentIndex);
+            renderQuestion(currentList[listIndex]);
         }
 
-        function prevQuestion() { if (currentIndex > 0) { currentIndex--; renderQuestion(currentIndex); } }
-        function nextQuestion() { if (currentIndex < qData.length - 1) { currentIndex++; renderQuestion(currentIndex); } }
-        function jumpToQuestion(index) { currentIndex = parseInt(index); renderQuestion(currentIndex); }
+        function prevQuestion() { if (listIndex > 0) { listIndex--; renderQuestion(currentList[listIndex]); } }
+        function nextQuestion() { if (listIndex < currentList.length - 1) { listIndex++; renderQuestion(currentList[listIndex]); } }
+        function jumpToQuestion(idxInList) { listIndex = parseInt(idxInList); renderQuestion(currentList[listIndex]); }
 
         function renderSelector() {
             const sel = document.getElementById('q-selector');
-            sel.innerHTML = qData.map((q, i) => {
+            sel.innerHTML = currentList.map((realIdx, arrIdx) => {
+                const q = qData[realIdx];
                 const s = userProgress[q["题号"]]?.status;
                 const icon = s === 'correct' ? '✅' : (s === 'wrong' ? '❌' : '⬜');
-                return `<option value="${i}">${icon} 第 ${q["题号"]} 题</option>`;
+                return `<option value="${arrIdx}">${icon} 第 ${q["题号"]} 题</option>`;
             }).join('');
         }
 
@@ -250,11 +309,9 @@
             document.getElementById('count-wrong').innerText = wrong;
         }
 
-        // 数据存档逻辑
-        function toggleDataPanel() { 
-            document.getElementById('data-panel').classList.toggle('hidden'); 
-        }
-
+        // ================= 数据存档逻辑 =================
+        function toggleDataPanel() { document.getElementById('data-panel').classList.toggle('hidden'); }
+        
         function exportProgress() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(userProgress));
             const dlAnchorElem = document.createElement('a');
@@ -275,8 +332,7 @@
                         userProgress = imported;
                         localStorage.setItem('ccsp_progress', JSON.stringify(userProgress));
                         updateStats();
-                        renderSelector();
-                        renderQuestion(currentIndex);
+                        applyFilter(currentFilter); // 重新应用当前模式的筛选
                         alert("🎉 进度导入成功！");
                     }
                 } catch (err) {
@@ -291,8 +347,7 @@
                 userProgress = {};
                 localStorage.removeItem('ccsp_progress');
                 updateStats();
-                renderSelector();
-                renderQuestion(currentIndex);
+                applyFilter('all'); // 清空后自动回到全部题目模式
             }
         }
 
