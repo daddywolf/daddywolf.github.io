@@ -2663,7 +2663,7 @@ const questionsData = [
         "题号": "389",
         "英文题目与选项": "Maintenance mode requires all of these actions except:\n(A) Remove all active production instances\n(B) Ensure logging continues\n(C) Initiate enhanced security controls\n(D) Prevent new logins",
         "中文题目与选项": "维护模式需要执行以下所有操作，但以下哪项除外？\n(A) 删除所有活动的生产实例\n(B) 确保继续日志记录\n(C) 启动增强的安全控制\n(D) 阻止新的登录",
-        "答案": "B",
+        "答案": "A",
         "来源页码": 135
     },
     {
