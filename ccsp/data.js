@@ -857,7 +857,7 @@ const questionsData = [
         "题号": "128",
         "英文题目与选项": "Typically, SSDs are:\n(A) More expensive than spinning platters\n(B) Larger than tape backup\n(C) Heavier than tape libraries\n(D) More subject to malware than legacy drives",
         "中文题目与选项": "通常情况下，SSD 具有以下特征：\n(A) 比磁盘盘片更昂贵\n(B) 比磁带备份更大\n(C) 比磁带库更重\n(D) 比传统驱动器更容易受到恶意软件影响",
-        "答案": "",
+        "答案": "A",
         "来源页码": 42
     },
     {
@@ -1620,7 +1620,7 @@ const questionsData = [
         "题号": "239",
         "英文题目与选项": "The Cloud Security Alliance (CSA) publishes the Notorious Nine, a list of common threats to organizations participating in cloud computing.\nAccording to the CSA, what is one reason the threat of insecure interfaces and APIs is so prevalent in cloud computing?\n(A) Cloud customers and third parties are continually enhancing and modifying APIs.\n(B) APIs can have automated settings.\n(C) It is impossible to uninstall APIs.\n(D) APls are a form of malware ",
         "中文题目与选项": "云安全联盟（CSA）发布了“九大臭名昭著威胁”，这是一个关于参与云计算的组织常见威胁的列表。\n根据 CSA 的说法，不安全接口和 API 的威胁在云计算中普遍存在的原因之一是什么？\n(A) 云客户和第三方不断增强和修改 API。\n(B) API 可以具有自动化设置。\n(C) 不可能卸载 API。\n(D) API是一种恶意软件。",
-        "答案": "",
+        "答案": "A",
         "来源页码": 79
     },
     {
@@ -1725,7 +1725,7 @@ const questionsData = [
         "题号": "255",
         "英文题目与选项": "Which of the following is NOT one of the three components of a federated identity system transaction?\n(A) Relying party\n(B) Identity provider\n(C) User\n(D) Proxy relay",
         "中文题目与选项": "以下哪一项不是联合身份系统事务的三个组成部分之一？\n(A) 依赖方\n(B) 身份提供者\n(C) 用户\n(D) 代理中继",
-        "答案": "",
+        "答案": "D",
         "来源页码": 85
     },
     {
@@ -1872,7 +1872,7 @@ const questionsData = [
         "题号": "276",
         "英文题目与选项": "Which of the following components are part of what a CCSP should review when looking at contracting with a cloud service provider?\n(A) Redundant uplink grafts\n(B) Background checks for the provider's personnel\n(C) The physical layout of the datacenter\n(D) Use of subcontractors",
         "中文题目与选项": "在考虑与云服务提供商签订合同时，CCSP应审查以下哪些组件？\n(A) 冗余上行链路配置\n(B) 供应商人员的背景调查\n(C) 数据中心的物理布局\n(D) 分包商的使用",
-        "答案": "",
+        "答案": "D",
         "来源页码": 92
     },
     {
@@ -1991,7 +1991,7 @@ const questionsData = [
         "题号": "293",
         "英文题目与选项": "Which of the following is the least challenging with regard to eDiscovery in the cloud?\n(A) Identifying roles such as data owner, controller and processor\n(B) Decentralization of data storage\n(C) Forensic analysis\n(D) Complexities of international law",
         "中文题目与选项": "以下哪项在云中的电子取证中挑战最小？\n(A) 识别角色，如数据所有者、控制者和处理者\n(B) 数据存储的去中心化\n(C) 取证分析\n(D) 国际法律的复杂性",
-        "答案": "",
+        "答案": "C",
         "来源页码": 99
     },
     {
@@ -2075,7 +2075,7 @@ const questionsData = [
         "题号": "305",
         "英文题目与选项": "When using transparent encryption of a database, where does the encryption engine reside?\n(A) At the application using the database\n(B) On the instance(s) attached to the volume\n(C) In a key management system\n(D) Within the database",
         "中文题目与选项": "使用数据库的透明加密时，加密引擎位于何处？\n(A) 在使用数据库的应用程序中\n(B) 位于连接到卷的实例上\n(C) 位于密钥管理系统中\n(D) 位于数据库内部",
-        "答案": "",
+        "答案": "D",
         "来源页码": 103
     },
     {
@@ -2215,7 +2215,7 @@ const questionsData = [
         "题号": "325",
         "英文题目与选项": "In order to ensure ongoing compliance with regulatory requirements, which phase of the cloud data lifecycle must be tested regularly?\n(A) Archive\n(B) Share\n(C) Store\n(D) Destroy",
         "中文题目与选项": "为了确保持续遵守法规要求，必须定期测试云数据生命周期的哪个阶段？\n(A) 存档\n(B) 共享\n(C) 存储\n(D) 销毁",
-        "答案": "",
+        "答案": "A",
         "来源页码": 111
     },
     {
@@ -2411,7 +2411,7 @@ const questionsData = [
         "题号": "353",
         "英文题目与选项": "A loosely coupled storage cluster will have performance and capacity limitations based on the\n(A) Physical backplane connecting it\n(B) Total number of nodes in the cluster\n(C) Amount of usage demanded\n(D) The performance and capacity in each node",
         "中文题目与选项": "松耦合存储集群的性能和容量限制取决于以下哪项？\n(A) 连接它的物理背板\n(B) 集群中的节点总数\n(C) 所要求的使用量\n(D) 每个节点的性能和容量",
-        "答案": "",
+        "答案": "D",
         "来源页码": 122
     },
     {
@@ -2684,7 +2684,7 @@ const questionsData = [
         "题号": "392",
         "英文题目与选项": "Which of the following should NOT be part of the requirement analysis phase of the software development lifecycle?\n(A) Functionality\n(B) Programming languages\n(C) Software platform\n(D) Security requirements",
         "中文题目与选项": "以下哪项不应该是软件开发生命周期需求分析阶段的一部分？\n(A) 功能性\n(B) 编程语言\n(C) 软件平台\n(D) 安全需求",
-        "答案": "",
+        "答案": "D",
         "来源页码": 136
     },
     {
@@ -2726,7 +2726,7 @@ const questionsData = [
         "题号": "398",
         "英文题目与选项": "Which of the following would NOT be a reason to activate a BCDR strategy?\n(A) Staffing loss\n(B) Terrorism attack\n(C) Utility disruptions\n(D) Natural disaster",
         "中文题目与选项": "以下哪项不是激活 BCDR 策略的理由？\n(A) 人员流失\n(B) 恐怖主义袭击\n(C) 公用事业中断\n(D) 自然灾害",
-        "答案": "",
+        "答案": "A",
         "来源页码": 138
     },
     {
@@ -2831,7 +2831,7 @@ const questionsData = [
         "题号": "413",
         "英文题目与选项": "Your organization has made it a top priority that any cloud environment being considered to host production systems have guarantees that resources will always be available for allocation when needed. Which of the following concepts will you need to ensure is part of the contract and SLA?\n(A) Limits\n(B) Shares\n(C) Resource pooling\n(D) Reservations",
         "中文题目与选项": "贵组织已将以下事项列为首要任务：任何用于承载生产系统的云环境都必须保证在需要时资源始终可用于分配。以下哪个概念需要确保包含在合同和SLA中？\n(A) 限制\n(B) 共享\n(C) 资源池化\n(D) 预留",
-        "答案": "",
+        "答案": "D",
         "来源页码": 143
     },
     {
@@ -2922,7 +2922,7 @@ const questionsData = [
         "题号": "426",
         "英文题目与选项": "When using a SaaS solution, what is the capability provided to the customer?\n(A) To use the provider's applications running on a cloud infrastructure. The applications are accessible from various client devices through either a thin client interface, such as a web browser (for example, web-based email), or a program interface. The consumer does not manage or control the underlying cloud infrastructure including network, servers, operating systems, storage, or even individual application capabilities, with the possible exception of limited user-specific application configuration settings.\n(B) To use the consumer's applications running on a cloud infrastructure. The applications are accessible from various client devices through either a thin client interface such as a web browser (for example, web-based email), or a program interface. The consumer does not manage or control the underlying cloud infrastructure, including network, servers, operating systems, storage, or even individual application capabilities, with the possible exception of limited user-specific application configuration settings.\n(C) To use the consumer's applications running on a cloud infrastructure. The applications are accessible from various client...",
         "中文题目与选项": "在使用 SaaS 解决方案时，向客户提供的能力是什么？\n(A) 使用运行在云基础设施上的提供商应用程序。这些应用可以通过各种客户端设备访问，例如通过瘦客户端接口（如网页浏览器，例如基于 Web 的电子邮件）或程序接口。使用者不管理或控制底层云基础设施，包括网络、服务器、操作系统、存储或单个应用程序的功能，但可能可以进行有限的用户特定应用配置设置。\n(B) 使用运行在云基础设施上的消费者应用程序。这些应用可以通过各种客户端设备访问，例如通过瘦客户端接口（如网页浏览器，例如基于 Web 的电子邮件）或程序接口。使用者不管理或控制底层云基础设施，包括网络、服务器、操作系统、存储或单个应用程序的功能，但可能可以进行有限的用户特定应用配置设置。\n(C) 使用运行在云基础设施上的消费者应用程序。这些应用可以通过各种客户端……",
-        "答案": "",
+        "答案": "D",
         "来源页码": 148
     },
     {
@@ -3034,7 +3034,7 @@ const questionsData = [
         "题号": "442",
         "英文题目与选项": "How is an object stored within an object storage system?\n(A) Key value\n(B) Database\n(C) LDAP\n(D) Tree structure",
         "中文题目与选项": "对象存储系统中对象是如何存储的？\n(A) 键值\n(B) 数据库\n(C) LDAP\n(D) 树结构",
-        "答案": "",
+        "答案": "A",
         "来源页码": 154
     },
     {
@@ -3251,7 +3251,7 @@ const questionsData = [
         "题号": "473",
         "英文题目与选项": "Which European Union directive pertains to personal data privacy and an individual's control over their personal data?\n(A) 99/9/EC\n(B) 95/46/EC\n(C) 2000/1/EC",
         "中文题目与选项": "哪个欧盟指令涉及个人数据隐私以及个人对其个人数据的控制？\n(A) 99/9/EC\n(B) 95/46/EC\n(C) 2000/1/EC",
-        "答案": "",
+        "答案": "B",
         "来源页码": 166
     },
     {
@@ -3342,7 +3342,7 @@ const questionsData = [
         "题号": "487",
         "英文题目与选项": "Which type of cloud-based storage is IRM typically associated with?\n(A) Volume\n(B) Unstructured\n(C) Structured\n(D) Object",
         "中文题目与选项": "IRM 通常与哪种类型的云存储相关联？\n(A) 卷存储\n(B) 非结构化存储\n(C) 结构化存储\n(D) 对象存储",
-        "答案": "",
+        "答案": "D",
         "来源页码": 171
     },
     {
@@ -3552,7 +3552,7 @@ const questionsData = [
         "题号": "518",
         "英文题目与选项": "When a system needs to be exposed to the public Internet, what type of secure system would be used to perform only the desired operations?\n(A) Firewall\n(B) Proxy\n(C) Honeypot\n(D) Bastion",
         "中文题目与选项": "当系统需要暴露在公共互联网时，会使用哪种安全系统来仅执行所需的操作？\n(A) 防火墙\n(B) 代理服务器\n(C) 蜜罐\n(D) 堡垒机",
-        "答案": "",
+        "答案": "D",
         "来源页码": 182
     },
     {
@@ -3699,7 +3699,7 @@ const questionsData = [
         "题号": "539",
         "英文题目与选项": "Which of the following should occur at each stage of the SDLC?\n(A) Added functionality\n(B) Management review\n(C) Verification and validation\n(D) Repurposing of any newly developed components",
         "中文题目与选项": "SDLC 的每个阶段都应该发生以下哪一项？\n(A) 添加的功能\n(B) 管理审查\n(C) 验证与确认\n(D) 对任何新开发组件的重新用途",
-        "答案": "",
+        "答案": "C",
         "来源页码": 190
     },
     {
@@ -4196,7 +4196,7 @@ const questionsData = [
         "题号": "610",
         "英文题目与选项": "You are in charge of creating the BCDR plan and procedures for your organization. Your organization has its production environment hosted by a cloud provider, and you have appropriate protections in place. Which of the following is a significant consideration for your BCDR backup?\n(A) Enough personnel at the BCDR recovery site to ensure proper operations\n(B) Good cryptographic key management\n(C) Access to the servers where the BCDR backup is stored\n(D) Forensic analysis capabilities",
         "中文题目与选项": "你负责为你的组织制定业务连续性与灾难恢复（BCDR）计划和流程。你的组织的生产环境托管在云服务提供商处，并且已经具备适当的保护措施。以下哪项是你在 BCDR 备份中需要重点考虑的重要因素？\n(A) 恢复站点上有足够人员以确保正确运行\n(B) 良好的加密密钥管理\n(C) 访问存放 BCDR 备份的服务器\n(D) 取证分析能力",
-        "答案": "",
+        "答案": "B",
         "来源页码": 216
     },
     {
@@ -4245,7 +4245,7 @@ const questionsData = [
         "题号": "617",
         "英文题目与选项": "From a security perspective, what component of a cloud computing infrastructure represents the biggest concern?\n(A) Hypervisor\n(B) Management plane\n(C) Object storage\n(D) Encryption",
         "中文题目与选项": "从安全角度来看，云计算基础设施的哪个组件代表了最大的关注点？\n(A) 虚拟机监控程序（Hypervisor）\n(B) 管理平面\n(C) 对象存储\n(D) 加密",
-        "答案": "",
+        "答案": "B",
         "来源页码": 219
     },
     {
@@ -4280,7 +4280,7 @@ const questionsData = [
         "题号": "622",
         "英文题目与选项": "In a federated identity arrangement using a trusted third-party model, who is the identity provider and who is the relying party?\n(A) The users of the various organizations within the federation / a CASB\n(B) Each member organization / a trusted third party\n(C) Each member organization / each member organization\n(D) A contracted third party / the various member organizations of the federation",
         "中文题目与选项": "在使用可信第三方模型的联合身份管理安排中，谁是身份提供者，谁是依赖方？\n(A) 联盟内各组织的用户 / CASB\n(B) 各成员组织 / 可信的第三方\n(C) 各成员组织 / 各成员组织\n(D) 签约的第三方 / 联盟的各成员组织",
-        "答案": "",
+        "答案": "D",
         "来源页码": 221
     },
     {
@@ -4315,7 +4315,7 @@ const questionsData = [
         "题号": "627",
         "英文题目与选项": "When beginning an audit, both the system owner and the auditors must agree on various aspects of the final audit report. Which of the following would NOT be something that is predefined as part of the audit agreement?\n(A) Size\n(B) Format\n(C) Structure\n(D) Audience",
         "中文题目与选项": "开始审计时，系统所有者和审计员必须就最终审计报告的各个方面达成一致。以下哪项不是审计协议中预先定义的内容？\n(A) 大小\n(B) 格式\n(C) 结构\n(D) 受众",
-        "答案": "",
+        "答案": "A",
         "来源页码": 223
     },
     {
@@ -4784,7 +4784,7 @@ const questionsData = [
         "题号": "694",
         "英文题目与选项": "An SLA contains the official requirements for contract performance and satisfaction between the cloud provider and cloud customer. Which of the following would NOT be a component with measurable metrics and requirements as part of an SLA?\n(A) Network\n(B) Users\n(C) Memory\n(D) CPU",
         "中文题目与选项": "SLA（服务级别协议）包含云服务提供商与云客户之间关于合同绩效和满意度的官方要求。以下哪一项不会是 SLA 中具有可衡量指标和要求的组成部分？\n(A) 网络\n(B) 用户\n(C) 内存\n(D) CPU",
-        "答案": "",
+        "答案": "B",
         "来源页码": 247
     },
     {
@@ -4924,7 +4924,7 @@ const questionsData = [
         "题号": "714",
         "英文题目与选项": "Which key storage solution would be the BEST choice in a situation where availability might be of particular concern?\n(A) Internal\n(B) External\n(C) Hosted\n(D) Embedded",
         "中文题目与选项": "在可能特别关注可用性的情况下，哪种密钥存储解决方案是最佳选择？\n(A) 内部的\n(B) 外部的\n(C) 托管的\n(D) 嵌入的",
-        "答案": "",
+        "答案": "A",
         "来源页码": 254
     },
     {
@@ -5043,7 +5043,7 @@ const questionsData = [
         "题号": "731",
         "英文题目与选项": "Impact resulting from risk being realized is often measured in terms of\n(A) Amount of data lost\n(B) Money\n(C) Amount of property lost\n(D) Number of people affected",
         "中文题目与选项": "实现风险产生的影响通常用以下指标衡量：\n(A) 丢失的数据量\n(B) 金钱\n(C) 丢失的财产数量\n(D) 受影响的人数",
-        "答案": "",
+        "答案": "B",
         "来源页码": 260
     },
     {
@@ -5134,7 +5134,7 @@ const questionsData = [
         "题号": "744",
         "英文题目与选项": "Who is the entity identified by personal data?\n(A) The data owner\n(B) The data processor\n(C) The data custodian\n(D) The data subject",
         "中文题目与选项": "由个人数据标识的实体是谁？\n(A) 数据所有者\n(B) 数据处理者\n(C) 数据保管人\n(D) 数据主体",
-        "答案": "",
+        "答案": "D",
         "来源页码": 264
     },
     {
@@ -5190,7 +5190,7 @@ const questionsData = [
         "题号": "752",
         "英文题目与选项": "You are the security subject matter expert (SME) for an organization considering a transition from the legacy environment into a hosted cloud provider's data center. One of the challenges you're facing is whether the provider will have undue control over your data once it is within the provider's data center. Will the provider be able to hold your organization hostage because they have your data? This is a(n) _____ issue.\n(A) Interoperability\n(B) Portability\n(C) Availability",
         "中文题目与选项": "你是一家组织的安全主题专家 (SME)，该组织正在考虑从传统环境迁移到托管的云服务提供商数据中心。你面临的挑战之一是：一旦数据进入提供商的数据中心，提供商是否会对你的数据拥有过度的控制权？提供商是否可能因为掌握你的数据而使你的组织陷入被动？这是一个 ____ 问题。\n(A) 互操作性\n(B) 可移植性\n(C) 可用性",
-        "答案": "",
+        "答案": "B",
         "来源页码": 267
     },
     {
@@ -5400,7 +5400,7 @@ const questionsData = [
         "题号": "782",
         "英文题目与选项": "Which of the following is not a component of contractual processing?\n(A) Scope of processing\n(B) Value of data\n(C) Location of data\n(D) Use of subcontractors",
         "中文题目与选项": "以下哪项不是合同的组成部分？\n(A) 处理范围\n(B) 数据的价值\n(C) 数据的位置\n(D) 分包商的使用",
-        "答案": "",
+        "答案": "B",
         "来源页码": 278
     },
     {
@@ -5652,7 +5652,7 @@ const questionsData = [
         "题号": "820",
         "英文题目与选项": "In order to prevent cloud customers from potentially consuming enormous amounts of resources within a cloud environment and thus having a negative impact on other customers, what concept is commonly used by a cloud provider?\n(A) Limit\n(B) Cap\n(C) Throttle\n(D) Reservation",
         "中文题目与选项": "为了防止云客户在云环境中潜在地消耗大量资源，从而对其他客户产生负面影响，云服务提供商通常使用什么概念？\n(A) 限制\n(B) 上限\n(C) 节流\n(D) 保留",
-        "答案": "",
+        "答案": "A",
         "来源页码": 291
     },
     {
