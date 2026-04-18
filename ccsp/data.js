@@ -2516,7 +2516,7 @@ const questionsData = [
         "题号": "368",
         "英文题目与选项": "What process is used within a cloud environment to maintain resource balancing and ensure that resources are available where and when needed?\n(A) Dynamic clustering\n(B) Dynamic balancing\n(C) Dynamic resource scheduling\n(D) Dynamic optimization",
         "中文题目与选项": "在云环境中使用什么流程来保持资源平衡并确保资源在需要时可用？\n(A) 动态集群\n(B) 动态平衡\n(C) 动态资源调度\n(D) 动态优化",
-        "答案": "D",
+        "答案": "C",
         "来源页码": 128
     },
     {
