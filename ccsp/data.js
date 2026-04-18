@@ -1991,7 +1991,7 @@ const questionsData = [
         "题号": "293",
         "英文题目与选项": "Which of the following is the least challenging with regard to eDiscovery in the cloud?\n(A) Identifying roles such as data owner, controller and processor\n(B) Decentralization of data storage\n(C) Forensic analysis\n(D) Complexities of international law",
         "中文题目与选项": "以下哪项在云中的电子取证中挑战最小？\n(A) 识别角色，如数据所有者、控制者和处理者\n(B) 数据存储的去中心化\n(C) 取证分析\n(D) 国际法律的复杂性",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 99
     },
     {
