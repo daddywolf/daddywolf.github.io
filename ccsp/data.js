@@ -304,7 +304,7 @@ const questionsData = [
         "题号": "46",
         "英文题目与选项": "Which of the following is NOT a major regulatory framework?\n(A) PCI DSS\n(B) HIPAA\n(C) SOX\n(D) FIPS 140-2",
         "中文题目与选项": "以下哪项不是主要的监管框架？\n(A) PCI DSS\n(B) HIPAA\n(C) SOX\n(D) FIPS 140-2",
-        "答案": "",
+        "答案": "D",
         "来源页码": 15
     },
     {
@@ -617,8 +617,8 @@ const questionsData = [
     },
     {
         "题号": "92",
-        "英文题目与选项": "Wfthub Training\n(A) Prevent unknown, unpatched assets from being used as backdoors into the environment\n(B) Ensure all lost devices are automatically entered into the collection system for repurchase and recovery\n(C) Maintain user morale by properly cataloging and annotating devices\n(D) Ensure all device billing is handled by the appropriate department",
-        "中文题目与选项": "Wfthub 培训\n(A) 防止未知、未修补的资产被用作环境的后门\n(B) 确保所有丢失的设备都自动输入采集系统，以便重新购买和恢复\n(C) 通过对其设备进行正确的编目和注释，保持用户士气\n(D) 确保所有设备的账单由相应部门处理",
+        "英文题目与选项": "Is important to maintain a current asset inventory list, including surveying your environment on a regular basis, in order to \n(A) Prevent unknown, unpatched assets from being used as backdoors into the environment\n(B) Ensure all lost devices are automatically entered into the collection system for repurchase and recovery\n(C) Maintain user morale by properly cataloging and annotating devices\n(D) Ensure all device billing is handled by the appropriate department",
+        "中文题目与选项": "为了确保资产安全，定期巡查环境，维护一份最新的资产清单至关重要，为了：\n(A) 防止未知、未修补的资产被用作环境的后门\n(B) 确保所有丢失的设备都自动输入采集系统，以便重新购买和恢复\n(C) 通过对其设备进行正确的编目和注释，保持用户士气\n(D) 确保所有设备的账单由相应部门处理",
         "答案": "A",
         "来源页码": 31
     },
@@ -1618,8 +1618,8 @@ const questionsData = [
     },
     {
         "题号": "239",
-        "英文题目与选项": "The Cloud Security Alliance (CSA) publishes the Notorious Nine, a list of common threats to organizations participating in cloud computing.\nAccording to the CSA, what is one reason the threat of insecure interfaces and APIs is so prevalent in cloud computing?\n(A) Cloud customers and third parties are continually enhancing and modifying APIs.\n(B) APIs can have automated settings.\n(C) It is impossible to uninstall APIs.",
-        "中文题目与选项": "云安全联盟（CSA）发布了“九大臭名昭著威胁”，这是一个关于参与云计算的组织常见威胁的列表。\n根据 CSA 的说法，不安全接口和 API 的威胁在云计算中普遍存在的原因之一是什么？\n(A) 云客户和第三方不断增强和修改 API。\n(B) API 可以具有自动化设置。\n(C) 不可能卸载 API。",
+        "英文题目与选项": "The Cloud Security Alliance (CSA) publishes the Notorious Nine, a list of common threats to organizations participating in cloud computing.\nAccording to the CSA, what is one reason the threat of insecure interfaces and APIs is so prevalent in cloud computing?\n(A) Cloud customers and third parties are continually enhancing and modifying APIs.\n(B) APIs can have automated settings.\n(C) It is impossible to uninstall APIs.\n(D) APls are a form of malware ",
+        "中文题目与选项": "云安全联盟（CSA）发布了“九大臭名昭著威胁”，这是一个关于参与云计算的组织常见威胁的列表。\n根据 CSA 的说法，不安全接口和 API 的威胁在云计算中普遍存在的原因之一是什么？\n(A) 云客户和第三方不断增强和修改 API。\n(B) API 可以具有自动化设置。\n(C) 不可能卸载 API。\n(D) API是一种恶意软件。",
         "答案": "",
         "来源页码": 79
     },
