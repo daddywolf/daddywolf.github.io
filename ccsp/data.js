@@ -2229,7 +2229,7 @@ const questionsData = [
         "题号": "327",
         "英文题目与选项": "Tokenization requires two distinct:\n(A) Authentication factors\n(B) Databases\n(C) Encryption keys\n(D) Personnel",
         "中文题目与选项": "标记化需要两个不同的：\n(A) 身份验证因子\n(B) 数据库\n(C) 加密密钥\n(D) 人员",
-        "答案": "C",
+        "答案": "B",
         "来源页码": 112
     },
     {
