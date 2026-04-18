@@ -2684,7 +2684,7 @@ const questionsData = [
         "题号": "392",
         "英文题目与选项": "Which of the following should NOT be part of the requirement analysis phase of the software development lifecycle?\n(A) Functionality\n(B) Programming languages\n(C) Software platform\n(D) Security requirements",
         "中文题目与选项": "以下哪项不应该是软件开发生命周期需求分析阶段的一部分？\n(A) 功能性\n(B) 编程语言\n(C) 软件平台\n(D) 安全需求",
-        "答案": "D",
+        "答案": "B",
         "来源页码": 136
     },
     {
@@ -2698,7 +2698,7 @@ const questionsData = [
         "题号": "394",
         "英文题目与选项": "The tasks performed by the hypervisor in the virtual environment can most be likened to the tasks of the ____ in the legacy environment.\n(A) Central processing unit (CPU)\n(B) Security team\n(C) OS\n(D) PGP",
         "中文题目与选项": "在虚拟环境中由虚拟机管理程序执行的任务最类似于传统环境中 ____ 的任务。\n(A) 中央处理器 (CPU)\n(B) 安全团队\n(C) 操作系统 (OS)\n(D) PGP",
-        "答案": "A",
+        "答案": "C",
         "来源页码": 137
     },
     {
