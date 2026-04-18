@@ -22,7 +22,8 @@
             <div class="flex gap-2 items-center">
                 <select id="bank-selector" onchange="switchBank(this.value)" class="bg-gray-100 text-gray-700 text-sm px-2 py-1.5 rounded-md border-gray-200 focus:ring-blue-500 font-bold max-w-[150px] truncate">
                     </select>
-                <button onclick="toggleDataPanel()" class="text-sm bg-green-50 px-3 py-1.5 rounded-md text-green-700 hover:bg-green-100 transition font-bold shrink-0">💾 存档管理</button>
+                <button onclick="toggleExamMode()" id="btn-exam-mode" class="text-sm bg-indigo-50 px-3 py-1.5 rounded-md text-indigo-700 hover:bg-indigo-100 transition font-bold shrink-0">🎓 考试模式</button>
+                <button onclick="toggleDataPanel()" class="text-sm bg-green-50 px-3 py-1.5 rounded-md text-green-700 hover:bg-green-100 transition font-bold shrink-0">💾 数据</button>
             </div>
         </div>
         
@@ -39,7 +40,7 @@
                 </select>
             </div>
 
-            <div class="ml-2 text-xs text-gray-500 flex flex-col items-end shrink-0">
+            <div id="stats-container" class="ml-2 text-xs text-gray-500 flex flex-col items-end shrink-0">
                 <span>✅ <span id="count-correct" class="text-green-600 font-bold">0</span></span>
                 <span>❌ <span id="count-wrong" class="text-red-600 font-bold">0</span></span>
             </div>
@@ -47,8 +48,8 @@
 
         <div id="data-panel" class="hidden max-w-3xl mx-auto px-4 py-4 bg-white border-b text-sm shadow-inner">
             <p class="text-gray-500 mb-4 text-xs leading-relaxed">
-                当前正在管理的题库是：<span id="current-bank-name" class="font-bold text-blue-600"></span><br>
-                题库进度互相独立。导入进度时，系统会校验文件是否属于当前题库。
+                当前题库：<span id="current-bank-name" class="font-bold text-blue-600"></span><br>
+                进度互相独立。导入进度时，系统会校验文件是否属于当前题库。
             </p>
             <div class="flex flex-wrap gap-2 items-center">
                 <button onclick="exportProgress()" class="bg-green-600 text-white px-3 py-2 rounded shadow-sm hover:bg-green-700 font-bold flex items-center gap-1 transition">⬇️ 导出进度</button>
@@ -56,10 +57,9 @@
                     <button class="bg-yellow-500 text-white px-3 py-2 rounded shadow-sm hover:bg-yellow-600 font-bold flex items-center gap-1 transition">⬆️ 导入进度</button>
                     <input type="file" id="import-file" accept=".json" onchange="importProgress(event)" class="absolute left-0 top-0 opacity-0 cursor-pointer w-full h-full">
                 </div>
-                <button onclick="exportWrongQuestions()" class="bg-purple-600 text-white px-3 py-2 rounded shadow-sm hover:bg-purple-700 font-bold flex items-center gap-1 transition">📦 导出错题本(.js)</button>
-                
+                <button onclick="exportWrongQuestions()" class="bg-purple-600 text-white px-3 py-2 rounded shadow-sm hover:bg-purple-700 font-bold flex items-center gap-1 transition">📦 导出所有错题(.js)</button>
                 <div class="flex-1 text-right">
-                    <button onclick="clearProgress()" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded hover:bg-red-100 border border-red-200 transition">⚠️ 清空当前进度</button>
+                    <button onclick="clearProgress()" class="text-xs bg-red-50 text-red-600 px-3 py-1.5 rounded hover:bg-red-100 border border-red-200 transition">⚠️ 清空当前题库进度</button>
                 </div>
             </div>
         </div>
@@ -78,6 +78,31 @@
             <button onclick="nextQuestion()" id="btn-next" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold shadow-md transition disabled:opacity-50">下一题 ➡️</button>
         </div>
     </footer>
+
+    <div id="exam-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
+            <div class="bg-indigo-600 px-6 py-4 flex justify-between items-center text-white shrink-0">
+                <h2 class="text-xl font-bold">📊 考试成绩单</h2>
+                <button onclick="closeExamModal()" class="hover:bg-indigo-700 px-2 py-1 rounded font-bold text-lg leading-none">✖</button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto flex-1 bg-gray-50">
+                <div class="text-center mb-6 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <div class="text-5xl font-black text-indigo-600 mb-3" id="exam-score">80%</div>
+                    <div class="text-gray-600 font-bold" id="exam-summary">共作答 10 题，做对 8 题，做错 2 题</div>
+                </div>
+                
+                <h3 id="exam-mistakes-title" class="font-bold text-red-600 mb-3 text-lg hidden">❌ 错题明细：</h3>
+                <div id="exam-mistakes-container" class="space-y-4">
+                    </div>
+            </div>
+            
+            <div class="bg-white border-t p-4 flex justify-end gap-3 shrink-0">
+                <button onclick="exportExamMistakes()" id="btn-export-exam" class="bg-purple-600 text-white px-5 py-2 rounded-lg font-bold hover:bg-purple-700 hidden shadow-sm">📦 导出本次错题(.js)</button>
+                <button onclick="closeExamModal()" class="bg-gray-200 text-gray-800 px-6 py-2 rounded-lg font-bold hover:bg-gray-300 transition">关闭并返回练习</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ================= 1. 题库清单配置区 =================
@@ -111,8 +136,12 @@
         let currentFilter = 'all'; 
         let currentList = []; 
         let listIndex = 0;    
-
         const storageKey = `ccsp_progress_${currentBankId}`;
+
+        // 🎓 考试模式专属状态
+        let isExamMode = false;
+        let examLog = new Set(); // 记录本次考试中做过的题号
+        let currentExamMistakes = []; // 暂存本次考试的错题对象，用于导出
 
         // ================= 3. 系统初始化 =================
         function initApp() {
@@ -137,6 +166,122 @@
         function switchBank(bankId) {
             localStorage.setItem('ccsp_active_bank', bankId);
             location.reload(); 
+        }
+
+        // ================= 🎓 考试模式核心引擎 =================
+        function toggleExamMode() {
+            if (!isExamMode) {
+                // 进入考试
+                if(!confirm("开启【考试模式】后：\n1. 选项不再提示对错\n2. 答完不会自动跳转，必须手动点下一题\n3. 🚫 不允许返回上一题\n4. 考完交卷后统一出成绩\n\n确定要从当前题目开始考试吗？")) return;
+                
+                isExamMode = true;
+                examLog.clear(); // 清空考试记录
+                
+                // UI 变化
+                const btn = document.getElementById('btn-exam-mode');
+                btn.innerHTML = "🛑 交卷并查看成绩";
+                btn.classList.replace('bg-indigo-50', 'bg-red-100');
+                btn.classList.replace('text-indigo-700', 'text-red-700');
+                
+                document.getElementById('stats-container').classList.add('hidden'); // 隐藏对错统计
+                document.getElementById('filter-selector').disabled = true; // 锁定模式切换
+                document.getElementById('q-selector').disabled = true; // 锁定题目跳转
+                document.getElementById('bank-selector').disabled = true; // 锁定题库切换
+                
+                renderQuestion(currentList[listIndex]); // 重新渲染当前题目为考试UI
+            } else {
+                // 结束考试并结算
+                finishExam();
+            }
+        }
+
+        function finishExam() {
+            if (examLog.size === 0) {
+                alert("你还没有作答任何题目，考试已取消。");
+                exitExamUI();
+                return;
+            }
+
+            // 计算成绩
+            let correctCount = 0;
+            currentExamMistakes = [];
+            
+            examLog.forEach(qId => {
+                const p = userProgress[qId];
+                if(p.status === 'correct') {
+                    correctCount++;
+                } else {
+                    const qObj = qData.find(q => q["题号"] === qId);
+                    currentExamMistakes.push({ ...qObj, "用户错选": p.selected });
+                }
+            });
+
+            const total = examLog.size;
+            const accuracy = Math.round((correctCount / total) * 100);
+
+            // 填充弹窗内容
+            document.getElementById('exam-score').innerText = `${accuracy}%`;
+            document.getElementById('exam-summary').innerText = `本次共作答 ${total} 题，做对 ${correctCount} 题，做错 ${total - correctCount} 题`;
+            
+            const mistakesContainer = document.getElementById('exam-mistakes-container');
+            const mistakesTitle = document.getElementById('exam-mistakes-title');
+            const exportBtn = document.getElementById('btn-export-exam');
+            
+            if (currentExamMistakes.length > 0) {
+                mistakesTitle.classList.remove('hidden');
+                exportBtn.classList.remove('hidden');
+                mistakesContainer.innerHTML = currentExamMistakes.map(q => `
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-red-200">
+                        <div class="text-sm font-bold text-gray-500 mb-2 border-b pb-2">题目 #${q["题号"]}</div>
+                        <div class="text-gray-800 font-medium mb-3 pre-wrap">${escapeHtml(q["中文题目与选项"])}</div>
+                        <div class="flex flex-col sm:flex-row gap-4 text-sm bg-gray-50 p-3 rounded">
+                            <div class="flex-1"><span class="text-gray-500">你的选择：</span><span class="font-bold text-red-600 text-lg">${q["用户错选"]}</span></div>
+                            <div class="flex-1"><span class="text-gray-500">正确答案：</span><span class="font-bold text-green-600 text-lg">${q["答案"]}</span></div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                mistakesTitle.classList.add('hidden');
+                exportBtn.classList.add('hidden');
+                mistakesContainer.innerHTML = `<div class="text-center text-gray-500 py-4">太牛了，全对！🎉</div>`;
+            }
+
+            // 显示弹窗
+            document.getElementById('exam-modal').classList.remove('hidden');
+            exitExamUI(); // 恢复底部 UI
+        }
+
+        function exitExamUI() {
+            isExamMode = false;
+            const btn = document.getElementById('btn-exam-mode');
+            btn.innerHTML = "🎓 考试模式";
+            btn.classList.replace('bg-red-100', 'bg-indigo-50');
+            btn.classList.replace('text-red-700', 'text-indigo-700');
+            
+            document.getElementById('stats-container').classList.remove('hidden');
+            document.getElementById('filter-selector').disabled = false;
+            document.getElementById('q-selector').disabled = false;
+            document.getElementById('bank-selector').disabled = false;
+            
+            updateStats();
+            renderSelector();
+            renderQuestion(currentList[listIndex]);
+        }
+
+        function closeExamModal() {
+            document.getElementById('exam-modal').classList.add('hidden');
+        }
+
+        function exportExamMistakes() {
+            if (currentExamMistakes.length === 0) return;
+            const jsContent = "const questionsData = " + JSON.stringify(currentExamMistakes, null, 4) + ";\n";
+            const dataStr = "data:text/javascript;charset=utf-8," + encodeURIComponent(jsContent);
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            const dateStr = new Date().toISOString().slice(0,10);
+            dlAnchorElem.setAttribute("download", `${currentBankId}_exam_mistakes_${dateStr}.js`);
+            dlAnchorElem.click();
+            dlAnchorElem.remove();
         }
 
         // ================= 4. 模式筛选引擎 =================
@@ -216,7 +361,9 @@
             const q = qData[realIndex];
             const qId = q["题号"];
             const progress = userProgress[qId] || {};
-            const isAnswered = !!progress.status;
+            
+            // 如果是考试模式，不锁定选项按钮，允许反复修改
+            const canEditOption = isExamMode || !progress.status;
 
             const engParsed = parseQuestionText(q["英文题目与选项"]);
             const chnParsed = parseQuestionText(q["中文题目与选项"]);
@@ -227,16 +374,14 @@
             if (chnParsed.options) {
                 optionsHTML = `<div class="flex flex-col gap-3 mt-6">`;
                 opts.forEach(opt => {
-                    const engText = engParsed.options ? engParsed.options[opt] : '';
-                    const chnText = chnParsed.options[opt];
                     optionsHTML += `
-                        <button onclick="answerQuestion('${qId}', '${opt}', '${q["答案"]}')" ${isAnswered ? 'disabled' : ''}
+                        <button onclick="answerQuestion('${qId}', '${opt}', '${q["答案"]}')" ${canEditOption ? '' : 'disabled'}
                             class="text-left p-4 rounded-xl border-2 transition relative flex items-start gap-3
-                            ${getOptionClass(opt, progress.selected, q["答案"], isAnswered)}">
+                            ${getOptionClass(opt, progress.selected, q["答案"], canEditOption)}">
                             <span class="font-bold text-lg shrink-0 mt-1">${opt}.</span>
                             <div>
-                                ${engText ? `<div class="text-xs opacity-70 mb-1 pre-wrap">${escapeHtml(engText)}</div>` : ''}
-                                <div class="text-base font-medium pre-wrap">${escapeHtml(chnText)}</div>
+                                ${engParsed.options ? `<div class="text-xs opacity-70 mb-1 pre-wrap">${escapeHtml(engParsed.options[opt])}</div>` : ''}
+                                <div class="text-base font-medium pre-wrap">${escapeHtml(chnParsed.options[opt])}</div>
                             </div>
                         </button>
                     `;
@@ -247,8 +392,8 @@
                     <div class="mt-6 text-sm text-red-400">⚠️ 选项解析异常，请直接点击下方字母。</div>
                     <div class="grid grid-cols-4 gap-3 mt-2">
                         ${opts.map(opt => `
-                            <button onclick="answerQuestion('${qId}', '${opt}', '${q["答案"]}')" ${isAnswered ? 'disabled' : ''}
-                                class="py-4 rounded-xl font-bold text-xl border-2 transition ${getOptionClass(opt, progress.selected, q["答案"], isAnswered)}">${opt}</button>
+                            <button onclick="answerQuestion('${qId}', '${opt}', '${q["答案"]}')" ${canEditOption ? '' : 'disabled'}
+                                class="py-4 rounded-xl font-bold text-xl border-2 transition ${getOptionClass(opt, progress.selected, q["答案"], canEditOption)}">${opt}</button>
                         `).join('')}
                     </div>
                 `;
@@ -258,7 +403,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="bg-blue-50 px-5 py-3 border-b border-blue-100 flex justify-between items-center text-sm">
                         <span class="font-bold text-blue-800">题目 #${qId}</span>
-                        ${isAnswered ? `<button onclick="resetQuestion('${qId}')" class="text-gray-500 hover:text-blue-600 bg-white px-2 py-1 rounded border shadow-sm transition">🔄 重做此题</button>` : ''}
+                        ${!canEditOption && !isExamMode ? `<button onclick="resetQuestion('${qId}')" class="text-gray-500 hover:text-blue-600 bg-white px-2 py-1 rounded border shadow-sm transition">🔄 重做此题</button>` : ''}
                     </div>
                     
                     <div class="p-5 md:p-8">
@@ -267,7 +412,7 @@
                         
                         ${optionsHTML}
                         
-                        <div class="${progress.status === 'wrong' ? 'block' : 'hidden'} mt-6 p-4 bg-red-50 text-red-800 rounded-xl border border-red-200">
+                        <div class="${progress.status === 'wrong' && !isExamMode ? 'block' : 'hidden'} mt-6 p-4 bg-red-50 text-red-800 rounded-xl border border-red-200">
                             <div class="font-bold mb-1 flex items-center gap-2">❌ 回答错误！</div>
                             <div class="text-sm">您的选择是 <span class="font-bold text-lg">${progress.selected}</span> ，本题的正确答案是 <span class="font-bold text-lg text-green-600">${q["答案"]}</span>。</div>
                         </div>
@@ -275,18 +420,27 @@
                 </div>
             `;
 
-            document.getElementById('btn-prev').disabled = listIndex === 0;
+            // 更新页脚和下拉框状态
+            // 考试模式下，强行禁用“上一题”
+            document.getElementById('btn-prev').disabled = isExamMode || listIndex === 0;
             document.getElementById('btn-next').disabled = listIndex === currentList.length - 1;
             document.getElementById('page-indicator').innerText = `${listIndex + 1} / ${currentList.length}`;
-            document.getElementById('q-selector').value = listIndex; 
+            if (!isExamMode) document.getElementById('q-selector').value = listIndex; 
             document.getElementById('main-content').scrollTop = 0;
         }
 
-        function getOptionClass(opt, selected, correct, isAnswered) {
-            if (!isAnswered) return "bg-white border-gray-200 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:shadow-md cursor-pointer";
-            if (opt === correct) return "bg-green-500 border-green-600 text-white shadow-md"; 
-            if (opt === selected && selected !== correct) return "bg-red-500 border-red-600 text-white"; 
-            return "bg-gray-50 border-gray-100 text-gray-400 opacity-50 cursor-not-allowed"; 
+        function getOptionClass(opt, selected, correct, canEditOption) {
+            if (isExamMode) {
+                // 考试模式：只有选中（变蓝）和未选中状态，不显示对错绿红
+                if (opt === selected) return "bg-blue-500 border-blue-600 text-white shadow-md";
+                return "bg-white border-gray-200 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:shadow-md cursor-pointer";
+            } else {
+                // 练习模式逻辑
+                if (canEditOption) return "bg-white border-gray-200 text-gray-700 hover:border-blue-400 hover:bg-blue-50 hover:shadow-md cursor-pointer";
+                if (opt === correct) return "bg-green-500 border-green-600 text-white shadow-md"; 
+                if (opt === selected && selected !== correct) return "bg-red-500 border-red-600 text-white"; 
+                return "bg-gray-50 border-gray-100 text-gray-400 opacity-50 cursor-not-allowed"; 
+            }
         }
 
         // ================= 6. 交互逻辑 =================
@@ -299,17 +453,24 @@
             };
             
             localStorage.setItem(storageKey, JSON.stringify(userProgress));
-            updateStats();
             
-            renderSelector(); 
-            renderQuestion(currentList[listIndex]); 
+            if (isExamMode) {
+                // 考试模式：记录题号，仅刷新UI展现选中状态，不自动跳转
+                examLog.add(qId);
+                renderQuestion(currentList[listIndex]); 
+            } else {
+                // 练习模式：更新统计，重绘选项，答对自动跳转
+                updateStats();
+                renderSelector(); 
+                renderQuestion(currentList[listIndex]); 
 
-            if (isCorrect) {
-                setTimeout(() => {
-                    if (listIndex < currentList.length - 1) nextQuestion();
-                    else alert(currentFilter === 'wrong' ? "🎉 错题本已刷到底部！" : "🎉 所有题目都已刷完！");
-                }, 600);
-            } 
+                if (isCorrect) {
+                    setTimeout(() => {
+                        if (listIndex < currentList.length - 1) nextQuestion();
+                        else alert(currentFilter === 'wrong' ? "🎉 错题本已刷到底部！" : "🎉 所有题目都已刷完！");
+                    }, 600);
+                } 
+            }
         }
 
         function resetQuestion(qId) {
@@ -320,9 +481,19 @@
             renderQuestion(currentList[listIndex]);
         }
 
-        function prevQuestion() { if (listIndex > 0) { listIndex--; renderQuestion(currentList[listIndex]); } }
-        function nextQuestion() { if (listIndex < currentList.length - 1) { listIndex++; renderQuestion(currentList[listIndex]); } }
-        function jumpToQuestion(idxInList) { listIndex = parseInt(idxInList); renderQuestion(currentList[listIndex]); }
+        function prevQuestion() { 
+            if (isExamMode) return; // 再次安全拦截
+            if (listIndex > 0) { listIndex--; renderQuestion(currentList[listIndex]); } 
+        }
+        
+        function nextQuestion() { 
+            if (listIndex < currentList.length - 1) { listIndex++; renderQuestion(currentList[listIndex]); } 
+        }
+        
+        function jumpToQuestion(idxInList) { 
+            if (isExamMode) return;
+            listIndex = parseInt(idxInList); renderQuestion(currentList[listIndex]); 
+        }
 
         function renderSelector() {
             const sel = document.getElementById('q-selector');
@@ -358,21 +529,12 @@
             dlAnchorElem.remove();
         }
 
-        // 🌟 新增：导出纯错题为 .js 题库文件
         function exportWrongQuestions() {
             const wrongQuestions = [];
-            
-            // 扫描原题库，提取被标记为错题的题目
             qData.forEach(q => {
-                const qId = q["题号"];
-                const progress = userProgress[qId];
+                const progress = userProgress[q["题号"]];
                 if (progress && progress.status === 'wrong') {
-                    // 深拷贝题目对象，并追加“用户错选”字段
-                    const exportQ = { 
-                        ...q, 
-                        "用户错选": progress.selected 
-                    };
-                    wrongQuestions.push(exportQ);
+                    wrongQuestions.push({ ...q, "用户错选": progress.selected });
                 }
             });
 
@@ -381,18 +543,12 @@
                 return;
             }
 
-            // 格式化为 js 变量代码
-            // 使用 JSON.stringify 的第三个参数 4 进行漂亮的缩进格式化
             const jsContent = "const questionsData = " + JSON.stringify(wrongQuestions, null, 4) + ";\n";
-            
-            // 触发下载
             const dataStr = "data:text/javascript;charset=utf-8," + encodeURIComponent(jsContent);
             const dlAnchorElem = document.createElement('a');
             dlAnchorElem.setAttribute("href", dataStr);
             const dateStr = new Date().toISOString().slice(0,10);
-            
-            // 下载文件名为 bankID_wrong_questions_日期.js
-            dlAnchorElem.setAttribute("download", `${currentBankId}_wrong_questions_${dateStr}.js`);
+            dlAnchorElem.setAttribute("download", `${currentBankId}_all_wrong_questions_${dateStr}.js`);
             dlAnchorElem.click();
             dlAnchorElem.remove();
             
@@ -406,28 +562,17 @@
             reader.onload = function(e) {
                 try {
                     const imported = JSON.parse(e.target.result);
-                    if (imported.bankId) {
-                        if (imported.bankId !== currentBankId) {
-                            alert(`🚨 导入失败！\n\n该进度文件属于【${AVAILABLE_BANKS[imported.bankId]?.name || imported.bankId}】，而你当前打开的是【${AVAILABLE_BANKS[currentBankId].name}】。\n\n请在左上角切换到正确题库后再导入！`);
-                            document.getElementById('import-file').value = ""; 
-                            return;
-                        }
-                        userProgress = imported.progress;
-                    } else {
-                        if (confirm("⚠️ 检测到这是旧版本的进度文件，未包含题库标签。\n\n系统将尝试将其强行导入当前的【" + AVAILABLE_BANKS[currentBankId].name + "】。是否继续？")) {
-                            userProgress = imported;
-                        } else {
-                            document.getElementById('import-file').value = ""; 
-                            return;
-                        }
+                    if (imported.bankId && imported.bankId !== currentBankId) {
+                        alert(`🚨 导入失败！\n\n该进度文件属于【${AVAILABLE_BANKS[imported.bankId]?.name || imported.bankId}】，而你当前打开的是【${AVAILABLE_BANKS[currentBankId].name}】。`);
+                        document.getElementById('import-file').value = ""; 
+                        return;
                     }
-
+                    userProgress = imported.progress || imported;
                     localStorage.setItem(storageKey, JSON.stringify(userProgress));
                     updateStats();
                     applyFilter(currentFilter); 
                     alert("🎉 进度导入成功！");
                     document.getElementById('import-file').value = ""; 
-
                 } catch (err) {
                     alert("❌ 文件格式错误，无法读取。");
                 }
