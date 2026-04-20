@@ -164,7 +164,7 @@ const questionsData = [
         "题号": "26",
         "英文题目与选项": "According to OWASP recommendations, active software security testing should include all of the following except\n(A) Session initiation testing\n(B) Input validation testing\n(C) Testing for error handling\n(D) Testing for weak cryptography",
         "中文题目与选项": "根据 OWASP 建议，主动软件安全测试应包括以下所有内容，但不包括：\n(A) 会话初始化测试\n(B) 输入验证测试\n(C) 错误处理测试\n(D) 弱加密测试",
-        "答案": "D",
+        "答案": "A",
         "来源页码": 8
     },
     {
@@ -178,7 +178,7 @@ const questionsData = [
         "题号": "28",
         "英文题目与选项": "Which data state would be most likely to use digital signatures as a security protection mechanism?\n(A) Data in use\n(B) Data in transit\n(C) Archived\n(D) Data at rest",
         "中文题目与选项": "哪个数据状态最可能使用数字签名作为安全保护机制？\n(A) 使用中的数据\n(B) 传输中的数据\n(C) 已归档的数据\n(D) 静止数据",
-        "答案": "A",
+        "答案": "B",
         "来源页码": 9
     },
     {
@@ -276,14 +276,14 @@ const questionsData = [
         "题号": "42",
         "英文题目与选项": "Which of the following roles involves the provisioning and delivery of cloud services?\n(A) Cloud service deployment manager\n(B) Cloud service business manager\n(C) Cloud service manager\n(D) Cloud service operations manager",
         "中文题目与选项": "以下哪个角色涉及云服务的供应和交付？\n(A) 云服务部署经理\n(B) 云服务业务经理\n(C) 云服务经理\n(D) 云服务运营经理",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 14
     },
     {
         "题号": "43",
         "英文题目与选项": "Which of the following is NOT a core component of a SIEM solution?\n(A) Correlation\n(B) Federation\n(C) Compliance\n(D) Scalability",
         "中文题目与选项": "以下哪项不是 SIEM 解决方案的核心组件？\n(A) 关联性\n(B) 联合\n(C) 合规\n(D) 可扩展性",
-        "答案": "D",
+        "答案": "B",
         "来源页码": 15
     },
     {
@@ -2439,7 +2439,7 @@ const questionsData = [
         "题号": "357",
         "英文题目与选项": "The WS-Security standards are built around all of the following standards except which one?\n(A) SAML\n(B) WSDL\n(C) XML\n(D) SOAP",
         "中文题目与选项": "WS-Security 标准是围绕以下所有标准构建的，除了哪一个？\n(A) SAML\n(B) WSDL\n(C) XML\n(D) SOAP",
-        "答案": "A",
+        "答案": "B",
         "来源页码": 124
     },
     {
@@ -2740,7 +2740,7 @@ const questionsData = [
         "题号": "400",
         "英文题目与选项": "Which cloud service category most commonly uses client-side key management systems?\n(A) Software as a Service\n(B) Infrastructure as a Service\n(C) Platform as a Service\n(D) Desktop as a Service",
         "中文题目与选项": "哪个云服务类别最常使用客户端密钥管理系统？\n(A) 软件即服务\n(B) 基础设施即服务\n(C) 平台即服务\n(D) 桌面即服务",
-        "答案": "A",
+        "答案": "B",
         "来源页码": 139
     },
     {
