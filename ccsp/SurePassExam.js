@@ -38,7 +38,7 @@ const questionsData = [
         "题号": "6",
         "英文题目与选项": "Which cloud service category most commonly uses client-side key management systems?\n(A) Software as a Service\n(B) Infrastructure as a Service\n(C) Platform as a Service\n(D) Desktop as a Service",
         "中文题目与选项": "哪种云服务类别最常使用客户端密钥管理系统？\n(A) 软件即服务（SaaS）\n(B) 基础设施即服务（IaaS）\n(C) 平台即服务（PaaS）\n(D) 桌面即服务（DaaS）",
-        "答案": "A",
+        "答案": "B",
         "来源页码": 2
     },
     {
@@ -421,8 +421,8 @@ const questionsData = [
     },
     {
         "题号": "61",
-        "英文题目与选项": "Which of the following is most relevant to cloud forensics?\n(A) eDiscovery\n(B) Chain of custody\n(C) Analysis\n(D) Plausibility",
-        "中文题目与选项": "以下哪项与云取证最相关？\n(A) 电子取证（eDiscovery）\n(B) 监管链（Chain of custody）\n(C) 分析（Analysis）\n(D) 可信性（Plausibility）",
+        "英文题目与选项": "Which of the following is not relevant to cloud forensics?\n(A) eDiscovery\n(B) Chain of custody\n(C) Analysis\n(D) Plausibility",
+        "中文题目与选项": "以下哪项与云取证最不相关？\n(A) 电子取证（eDiscovery）\n(B) 监管链（Chain of custody）\n(C) 分析（Analysis）\n(D) 可信性（Plausibility）",
         "答案": "D",
         "来源页码": 14
     },
