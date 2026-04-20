@@ -563,7 +563,7 @@ const questionsData = [
         "题号": "81",
         "英文题目与选项": "ISO 31000 is most similar to which of the following regulations, standards, guidelines, and frameworks?\n(A) NIST 800-37\n(B) COBIT\n(C) ITIL\n(D) GDPR",
         "中文题目与选项": "ISO 31000 与以下哪个法规、标准、指南或框架最为相似？\n(A) NIST 800-37\n(B) COBIT\n(C) ITIL\n(D) GDPR",
-        "答案": "B",
+        "答案": "A",
         "来源页码": 17
     },
     {
