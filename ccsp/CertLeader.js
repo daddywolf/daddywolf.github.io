@@ -661,7 +661,7 @@ const questionsData = [
         "题号": "95",
         "英文题目与选项": "Which data state would be most likely to use digital signatures as a security protection mechanism?\n(A) Data in use\n(B) Data in transit\n(C) Archived\n(D) Data at rest",
         "中文题目与选项": "哪种数据状态最有可能使用数字签名作为安全保护机制？\n(A) 使用中的数据\n(B) 传输中的数据\n(C) 归档的数据\n(D) 静止的数据",
-        "答案": "A",
+        "答案": "B",
         "来源页码": 23
     },
     {
