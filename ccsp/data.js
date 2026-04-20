@@ -1466,7 +1466,7 @@ const questionsData = [
         "题号": "217",
         "英文题目与选项": "BCDR strategies typically do not involve the entire operations of an organization, but only those deemed critical to their business. Which concept pertains to the amount of data and services needed to reach the predetermined level of operations?\n(A) SRE\n(B) RPO\n(C) RSL\n(D) RTO",
         "中文题目与选项": "BCDR 策略通常不涉及组织的全部运营，而只涉及那些被认为对其业务至关重要的运营。哪个概念与达到预定操作水平所需的数据量和服务量有关？\n(A) SRE\n(B) RPO\n(C) RSL\n(D) RTO",
-        "答案": "B",
+        "答案": "C",
         "来源页码": 71
     },
     {
