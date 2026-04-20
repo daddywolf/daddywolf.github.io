@@ -955,7 +955,7 @@ const questionsData = [
         "题号": "137",
         "英文题目与选项": "Which crucial aspect of cloud computing can be most threatened by insecure APIs?\n(A) Automation\n(B) Redundancy\n(C) Resource pooling\n(D) Elasticity",
         "中文题目与选项": "云计算中的哪个关键方面最容易受到不安全API的威胁？\n(A) 自动化\n(B) 冗余性\n(C) 资源池化\n(D) 弹性",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 137
     },
     {
@@ -1375,7 +1375,7 @@ const questionsData = [
         "题号": "197",
         "英文题目与选项": "Over time, what is a primary concern for data archiving?\n(A) Size of archives\n(B) Format of archives\n(C) Recoverability\n(D) Regulatory changes",
         "中文题目与选项": "随着时间推移，数据归档的主要关注点是什么？\n(A) 归档的大小\n(B) 归档的格式\n(C) 可恢复性\n(D) 法规变化",
-        "答案": "D",
+        "答案": "C",
         "来源页码": 197
     },
     {
@@ -2334,7 +2334,7 @@ const questionsData = [
         "题号": "334",
         "英文题目与选项": "BCDR strategies typically do not involve the entire operations of an organization, but only those deemed critical to their business. Which concept pertains to the amount of data and services needed to reach the predetermined level of operations?\n(A) SRE\n(B) RPO\n(C) RSL\n(D) RTO",
         "中文题目与选项": "BCDR 策略通常并不涉及组织的全部运营，而仅涉及被视为对其业务至关重要的部分。以下哪个概念与为达到预定运营水平所需的数据量和服务量有关？\n(A) SRE\n(B) RPO\n(C) RSL\n(D) RTO",
-        "答案": "B",
+        "答案": "C",
         "来源页码": 334
     },
     {
@@ -2348,7 +2348,7 @@ const questionsData = [
         "题号": "336",
         "英文题目与选项": "Which crucial aspect of cloud computing can be most threatened by insecure APIs?\n(A) Automation\n(B) Resource pooling\n(C) Elasticity\n(D) Redundancy",
         "中文题目与选项": "云计算中哪个关键方面最容易受到不安全 API 的威胁？\n(A) 自动化\n(B) 资源池化\n(C) 弹性\n(D) 冗余",
-        "答案": "B",
+        "答案": "A",
         "来源页码": 336
     },
     {
