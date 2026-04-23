@@ -570,7 +570,7 @@ const questionsData = [
         "题号": "82",
         "英文题目与选项": "Which of the following is the least challenging with regard to eDiscovery in the cloud?\n(A) Identifying roles such as data owner, controller and processor\n(B) Decentralization of data storage\n(C) Forensic analysis\n(D) Complexities of International law",
         "中文题目与选项": "以下哪项在云环境中的电子取证（eDiscovery）工作中挑战最小？\n(A) 识别数据所有者、控制者和处理者等角色\n(B) 数据存储的去中心化\n(C) 取证分析\n(D) 国际法的复杂性",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 18
     },
     {
@@ -612,7 +612,7 @@ const questionsData = [
         "题号": "88",
         "英文题目与选项": "A comprehensive BCDR plan will encapsulate many or most of the traditional concerns of operating a system in any data center. However, what is one consideration that is often overlooked with the formulation of a BCDR plan?\n(A) Availability of staff\n(B) Capacity at the BCDR site\n(C) Restoration of services\n(D) Change management processes",
         "中文题目与选项": "一份全面的业务连续性与灾难恢复（BCDR）计划将涵盖在任何数据中心运行系统时的大部分传统问题。然而，在制定 BCDR 计划时，经常被忽视的一个考虑因素是什么？\n(A) 员工的可用性\n(B) BCDR 站点的容量\n(C) 服务恢复\n(D) 变更管理流程",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 19
     },
     {
@@ -829,7 +829,7 @@ const questionsData = [
         "题号": "119",
         "英文题目与选项": "The share phase of the cloud data lifecycle involves allowing data to leave the application, to be shared with external systems, services, or even other vendors/contractors. What technology would be useful for protecting data at this point?\n(A) IDS\n(B) DLP\n(C) IPS\n(D) WAF",
         "中文题目与选项": "云数据生命周期中的“共享阶段”涉及允许数据离开应用程序，与外部系统、服务，甚至其他供应商或承包商共享。哪种技术在此阶段最有助于保护数据？\n(A) 入侵检测系统（IDS）\n(B) 数据泄露防护（DLP）\n(C) 入侵防御系统（IPS）\n(D) Web 应用防火墙（WAF）",
-        "答案": "",
+        "答案": "B",
         "来源页码": 26
     },
     {
