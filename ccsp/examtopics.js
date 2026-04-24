@@ -24,7 +24,7 @@ const questionsData = [
         "题号": "4",
         "英文题目与选项": "Which of the following concepts refers to a cloud customer paying only for the resources and offerings they use within a cloud environment, and only for the duration that they are consuming them?\n(A) Consumable service\n(B) Measured service\n(C) Billable service\n(D) Metered service",
         "中文题目与选项": "以下哪种概念指的是云客户只为其在云环境中实际使用的资源和服务付费，并且仅在使用期间付费？\n(A) 可消耗服务\n(B) 可测量服务\n(C) 计费服务\n(D) 计量服务",
-        "答案": "D",
+        "答案": "B",
         "来源页码": 4
     },
     {
@@ -122,7 +122,7 @@ const questionsData = [
         "题号": "18",
         "英文题目与选项": "What type of segregation and separation of resources is needed within a cloud environment for multitenancy purposes versus a traditional data center model?\n(A) Virtual\n(B) Security\n(C) Physical\n(D) Logical",
         "中文题目与选项": "在云环境中，为了实现多租户，与传统数据中心模型相比，需要哪种类型的资源隔离和分离？\n(A) 虚拟的\n(B) 安全的\n(C) 物理的\n(D) 逻辑的",
-        "答案": "A",
+        "答案": "D",
         "来源页码": 18
     },
     {
@@ -444,7 +444,7 @@ const questionsData = [
         "题号": "64",
         "英文题目与选项": "Which of the following represents a prioritization of applications or cloud customers for the allocation of additional requested resources when there is a limitation on available resources?\n(A) Provision\n(B) Limit\n(C) Reservation\n(D) Share",
         "中文题目与选项": "以下哪一项表示在可用资源有限的情况下，为分配额外请求的资源而对应用程序或云客户进行的优先级排序？\n(A) 供应\n(B) 限制\n(C) 保留\n(D) 共享",
-        "答案": "C",
+        "答案": "D",
         "来源页码": 64
     },
     {
@@ -493,7 +493,7 @@ const questionsData = [
         "题号": "71",
         "英文题目与选项": "If you're using iSCSI in a cloud environment, what must come from an external protocol or application?\n(A) Kerberos support\n(B) CHAP support\n(C) Authentication\n(D) Encryption",
         "中文题目与选项": "在云环境中使用 iSCSI 时，哪项必须来自外部协议或应用程序？\n(A) Kerberos 支持\n(B) CHAP 支持\n(C) 认证\n(D) 加密",
-        "答案": "C",
+        "答案": "D",
         "来源页码": 71
     },
     {
@@ -584,7 +584,7 @@ const questionsData = [
         "题号": "84",
         "英文题目与选项": "Which of the following threat types involves an application developer leaving references to internal information and configurations in code that is exposed to the client?\n(A) Sensitive data exposure\n(B) Security misconfiguration\n(C) Insecure direct object references\n(D) Unvalidated redirect and forwards",
         "中文题目与选项": "以下哪种威胁类型涉及应用程序开发人员在暴露给客户端的代码中留下对内部信息和配置的引用？\n(A) 敏感数据暴露\n(B) 安全配置错误\n(C) 不安全的直接对象引用\n(D) 未验证的重定向和转发",
-        "答案": "B",
+        "答案": "D",
         "来源页码": 84
     },
     {
@@ -612,7 +612,7 @@ const questionsData = [
         "题号": "88",
         "英文题目与选项": "Which of the following roles is responsible for gathering metrics on cloud services and managing cloud deployments and the deployment processes?\n(A) Cloud service business manager\n(B) Cloud service operations manager\n(C) Cloud service manager\n(D) Cloud service deployment manager",
         "中文题目与选项": "以下哪一个角色负责收集云服务的指标，并管理云部署及部署过程？\n(A) 云服务业务经理\n(B) 云服务运营经理\n(C) 云服务经理\n(D) 云服务部署经理",
-        "答案": "B",
+        "答案": "D",
         "来源页码": 88
     },
     {
@@ -689,7 +689,7 @@ const questionsData = [
         "题号": "99",
         "英文题目与选项": "What expectation of data custodians is made much more challenging by a cloud implementation, especially with PaaS or SaaS?\n(A) Data classification\n(B) Knowledge of systems\n(C) Access to data\n(D) Encryption requirements",
         "中文题目与选项": "在云实现中，尤其是使用 PaaS 或 SaaS 时，哪一项对数据保管人的期望变得更加具有挑战性？\n(A) 数据分类\n(B) 系统知识\n(C) 数据访问\n(D) 加密要求",
-        "答案": "C",
+        "答案": "B",
         "来源页码": 99
     },
     {
