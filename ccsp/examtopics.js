@@ -2327,7 +2327,7 @@ const questionsData = [
         "题号": "333",
         "英文题目与选项": "Without the extensive funds of a large corporation, a small-sized company could gain considerable and cost-effective services for which of the following concepts by moving to a cloud environment?\n(A) Regulatory\n(B) Security\n(C) Testing\n(D) Development",
         "中文题目与选项": "在缺乏大型公司的充足资金情况下，小型公司可以通过迁移到云环境，为以下哪个概念获得显著且高性价比的服务？\n(A) 合规\n(B) 安全\n(C) 测试\n(D) 开发",
-        "答案": "D",
+        "答案": "B",
         "来源页码": 333
     },
     {
