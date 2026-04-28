@@ -66,7 +66,7 @@ const questionsData = [
         "题号": "10",
         "英文题目与选项": "What is the biggest concern with hosting a key management system outside of the cloud environment?\n(A) Confidentiality\n(B) Portability\n(C) Availability\n(D) Integrity",
         "中文题目与选项": "在云环境之外托管密钥管理系统时，最大的担忧是什么？\n(A) 机密性\n(B) 可移植性\n(C) 可用性\n(D) 完整性",
-        "答案": "A",
+        "答案": "C",
         "来源页码": 10
     },
     {
@@ -640,7 +640,7 @@ const questionsData = [
         "题号": "92",
         "英文题目与选项": "What controls the formatting and security settings of a volume storage system within a cloud environment?\n(A) Management plane\n(B) SAN host controller\n(C) Hypervisor\n(D) Operating system of the host",
         "中文题目与选项": "在云环境中，哪个组件控制卷存储系统的格式化和安全设置？\n(A) 管理平面\n(B) SAN主机控制器\n(C) 虚拟机监控程序（Hypervisor）\n(D) 主机操作系统",
-        "答案": "A",
+        "答案": "D",
         "来源页码": 92
     },
     {
@@ -1081,7 +1081,7 @@ const questionsData = [
         "题号": "155",
         "英文题目与选项": "What strategy involves hiding data in a data set to prevent someone from identifying specific individuals based on other data fields present?\n(A) Anonymization\n(B) Tokenization\n(C) Masking\n(D) Obfuscation",
         "中文题目与选项": "哪种策略通过在数据集中隐藏数据，以防止他人根据其他数据字段来识别特定个人？\n(A) 匿名化\n(B) 令牌化\n(C) 脱敏\n(D) 混淆",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 155
     },
     {
@@ -1305,7 +1305,7 @@ const questionsData = [
         "题号": "187",
         "英文题目与选项": "Which aspect of cloud computing would make the use of a cloud the most attractive as a BCDR solution?\n(A) Interoperability\n(B) Resource pooling\n(C) Portability\n(D) Measured service",
         "中文题目与选项": "云计算的哪个方面使其作为业务连续性和灾难恢复（BCDR）解决方案最具吸引力？\n(A) 互操作性\n(B) 资源池化\n(C) 可移植性\n(D) 可计量服务",
-        "答案": "B",
+        "答案": "D",
         "来源页码": 187
     },
     {
@@ -1445,14 +1445,14 @@ const questionsData = [
         "题号": "207",
         "英文题目与选项": "In order to prevent cloud customers from potentially consuming enormous amounts of resources within a cloud environment and thus having a negative impact on other customers, what concept is commonly used by a cloud provider?\n(A) Limit\n(B) Cap\n(C) Throttle\n(D) Reservation",
         "中文题目与选项": "为了防止云客户在云环境中可能消耗大量资源，从而对其他客户造成负面影响，云服务提供商通常会使用哪种概念？\n(A) 限制\n(B) 上限\n(C) 节流\n(D) 预留",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 207
     },
     {
         "题号": "208",
         "英文题目与选项": "Where is a DLP solution generally installed when utilized for monitoring data at rest?\n(A) Network firewall\n(B) Host system\n(C) Application server\n(D) Database server",
         "中文题目与选项": "当用于监控静态数据时，DLP（数据防泄漏）解决方案通常安装在什么位置？\n(A) 网络防火墙\n(B) 主机系统\n(C) 应用服务器\n(D) 数据库服务器",
-        "答案": "D",
+        "答案": "B",
         "来源页码": 208
     },
     {
@@ -1578,14 +1578,14 @@ const questionsData = [
         "题号": "226",
         "英文题目与选项": "From a security perspective, what component of a cloud computing infrastructure represents the biggest concern?\n(A) Hypervisor\n(B) Management plane\n(C) Object storage\n(D) Encryption",
         "中文题目与选项": "从安全角度来看，云计算基础设施中哪个组件代表最大的安全隐患？\n(A) 虚拟机监控器（Hypervisor）\n(B) 管理平面\n(C) 对象存储\n(D) 加密",
-        "答案": "A",
+        "答案": "B",
         "来源页码": 226
     },
     {
         "题号": "227",
         "英文题目与选项": "Which of the following is NOT one of the main intended goals of a DLP solution?\n(A) Showing due diligence\n(B) Preventing malicious insiders\n(C) Regulatory compliance\n(D) Managing and minimizing risk",
         "中文题目与选项": "以下哪项不是数据泄露防护（DLP）解决方案的主要预期目标？\n(A) 展示尽职调查\n(B) 防止恶意内部人员\n(C) 合规监管要求\n(D) 管理和最小化风险",
-        "答案": "A",
+        "答案": "B",
         "来源页码": 227
     },
     {
@@ -1648,7 +1648,7 @@ const questionsData = [
         "题号": "236",
         "英文题目与选项": "Which of the following actions will NOT make data part of the create phase of the cloud data lifecycle?\n(A) Modify data\n(B) Modify metadata\n(C) New data\n(D) Import data",
         "中文题目与选项": "以下哪项操作不会使数据成为云数据生命周期创建阶段的一部分？\n(A) 修改数据\n(B) 修改元数据\n(C) 新数据\n(D) 导入数据",
-        "答案": "A",
+        "答案": "B",
         "来源页码": 236
     },
     {
@@ -1753,7 +1753,7 @@ const questionsData = [
         "题号": "251",
         "英文题目与选项": "With finite resources available within a cloud, even the largest cloud providers will at times need to determine which customers will receive additional resources first. What is the term associated with this determination?\n(A) Weighting\n(B) Prioritization\n(C) Shares\n(D) Scoring",
         "中文题目与选项": "在云环境中，资源是有限的，即使是最大的云服务提供商也需要在某些时候决定哪些客户能够优先获得额外资源。与这种决策相关的术语是什么？\n(A) 加权\n(B) 优先级划分\n(C) 份额\n(D) 评分",
-        "答案": "B",
+        "答案": "C",
         "来源页码": 251
     },
     {
@@ -1781,7 +1781,7 @@ const questionsData = [
         "题号": "255",
         "英文题目与选项": "Which phase of the cloud data lifecycle would be the MOST appropriate for the use of DLP technologies to protect the data?\n(A) Use\n(B) Store\n(C) Share\n(D) Create",
         "中文题目与选项": "云数据生命周期的哪个阶段最适合使用数据泄露防护（DLP）技术来保护数据？\n(A) 使用\n(B) 存储\n(C) 共享\n(D) 创建",
-        "答案": "B",
+        "答案": "C",
         "来源页码": 255
     },
     {
@@ -1851,7 +1851,7 @@ const questionsData = [
         "题号": "265",
         "英文题目与选项": "In order to ensure ongoing compliance with regulatory requirements, which phase of the cloud data lifecycle must be tested regularly?\n(A) Archive\n(B) Share\n(C) Store\n(D) Destroy",
         "中文题目与选项": "为了确保持续符合监管要求，云数据生命周期的哪个阶段必须定期进行测试？\n(A) 归档\n(B) 共享\n(C) 存储\n(D) 销毁",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 265
     },
     {
@@ -1900,7 +1900,7 @@ const questionsData = [
         "题号": "272",
         "英文题目与选项": "Which aspect of cloud computing pertains to cloud customers only paying for the resources and services they actually use?\n(A) Metered service\n(B) Measured billing\n(C) Metered billing\n(D) Measured service",
         "中文题目与选项": "云计算的哪个方面涉及到云客户只需为其实际使用的资源和服务付费？\n(A) 计量服务\n(B) 测量计费\n(C) 计量计费\n(D) 测量服务",
-        "答案": "A",
+        "答案": "D",
         "来源页码": 272
     },
     {
@@ -2033,7 +2033,7 @@ const questionsData = [
         "题号": "291",
         "英文题目与选项": "Audits are either done based on the status of a system or application at a specific time or done as a study over a period of time that takes into account changes and processes. Which of the following pairs matches an audit type that is done over time, along with the minimum span of time necessary for it?\n(A) SOC Type 2, one year\n(B) SOC Type 1, one year\n(C) SOC Type 2, one month\n(D) SOC Type 2, six months",
         "中文题目与选项": "审计可以基于系统或应用程序在某一特定时间的状态进行，也可以作为一个研究，在一段时间内考虑到变化和过程。以下哪一项匹配的是一种在时间段内进行的审计类型，以及其所需的最短时间跨度？\n(A) SOC 类型 2， 一年\n(B) SOC 类型 1， 一年\n(C) SOC 类型 2， 一个月\n(D) SOC 类型 2， 六个月",
-        "答案": "A",
+        "答案": "D",
         "来源页码": 291
     },
     {
@@ -2110,7 +2110,7 @@ const questionsData = [
         "题号": "302",
         "英文题目与选项": "BCDR strategies do not typically involve the entire operations of an organization, but only those deemed critical to their business. Which concept pertains to the amount of services that need to be recovered to meet BCDR objectives?\n(A) RSL\n(B) RTO\n(C) RPO\n(D) SRE",
         "中文题目与选项": "BCDR 策略通常不涉及组织的全部运营，而只包括被认为对其业务至关重要的部分。以下哪一概念与为了满足 BCDR 目标而需要恢复的服务数量相关？\n(A) RSL\n(B) RTO\n(C) RPO\n(D) SRE",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 302
     },
     {
@@ -2187,7 +2187,7 @@ const questionsData = [
         "题号": "313",
         "英文题目与选项": "Which ITIL component is focused on anticipating predictable problems and ensuring that configurations and operations are in place to prevent these problems from ever occurring?\n(A) Availability management\n(B) Continuity management\n(C) Configuration management\n(D) Problem management",
         "中文题目与选项": "哪个 ITIL 组件专注于预测可预见的问题，并确保配置和操作已到位以防止这些问题的发生？\n(A) 可用性管理\n(B) 连续性管理\n(C) 配置管理\n(D) 问题管理",
-        "答案": "A",
+        "答案": "D",
         "来源页码": 313
     },
     {
@@ -2306,7 +2306,7 @@ const questionsData = [
         "题号": "330",
         "英文题目与选项": "Cloud systems are increasingly used for BCDR solutions for organizations. What aspect of cloud computing makes their use for BCDR the most attractive?\n(A) On-demand self-service\n(B) Measured service\n(C) Portability\n(D) Broad network access",
         "中文题目与选项": "云系统越来越多地被组织用于业务连续性与灾难恢复（BCDR）解决方案。云计算的哪个特性使其在 BCDR 方面最具吸引力？\n(A) 按需自助服务\n(B) 可测量的服务\n(C) 可移植性\n(D) 广泛的网络访问",
-        "答案": "C",
+        "答案": "B",
         "来源页码": 330
     },
     {
@@ -2509,7 +2509,7 @@ const questionsData = [
         "题号": "359",
         "英文题目与选项": "Many activities within a cloud environment are performed via programmatic means, where complex and distributed operations are handled without the need to perform each step individually. Which of the following concepts does this describe?\n(A) Orchestration\n(B) Provisioning\n(C) Automation\n(D) Allocation",
         "中文题目与选项": "在云环境中，许多活动是通过编程方式执行的，复杂且分布式的操作无需逐步手动执行。以下哪个概念描述了这种情况？\n(A) 编排\n(B) 资源供应\n(C) 自动化\n(D) 分配",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 359
     },
     {
@@ -2656,7 +2656,7 @@ const questionsData = [
         "题号": "380",
         "英文题目与选项": "Apart from using encryption at the file system level, what technology is the most widely used to protect data stored in an object storage system?\n(A) TLS\n(B) HTTPS\n(C) VPN\n(D) IRM",
         "中文题目与选项": "除了在文件系统级别使用加密之外，哪种技术最广泛用于保护存储在对象存储系统中的数据？\n(A) TLS\n(B) HTTPS\n(C) VPN\n(D) IRM",
-        "答案": "A",
+        "答案": "D",
         "来源页码": 380
     },
     {
@@ -2957,7 +2957,7 @@ const questionsData = [
         "题号": "423",
         "英文题目与选项": "The goals of DLP solution implementation include all of the following, except:\n(A) Elasticity\n(B) Policy enforcement\n(C) Data discovery\n(D) Loss of mitigation",
         "中文题目与选项": "实施DLP（数据泄漏防护）解决方案的目标包括以下所有项，除了：\n(A) 弹性\n(B) 策略执行\n(C) 数据发现\n(D) 损失缓解",
-        "答案": "D",
+        "答案": "A",
         "来源页码": 423
     },
     {
@@ -3076,14 +3076,14 @@ const questionsData = [
         "题号": "440",
         "英文题目与选项": "Tokenization requires two distinct _________________ .\n(A) Personnel\n(B) Authentication factors\n(C) Encryption keys\n(D) Databases",
         "中文题目与选项": "令牌化需要两个不同的 _________________。\n(A) 人员\n(B) 认证因子\n(C) 加密密钥\n(D) 数据库",
-        "答案": "C",
+        "答案": "D",
         "来源页码": 440
     },
     {
         "题号": "441",
         "英文题目与选项": "Best practices for key management include all of the following, except:\n(A) Ensure multifactor authentication\n(B) Pass keys out of band\n(C) Have key recovery processes\n(D) Maintain key security",
         "中文题目与选项": "密钥管理的最佳实践包括以下所有内容，除了：\n(A) 确保多因素身份验证\n(B) 通过带外方式传递密钥\n(C) 实施密钥恢复流程\n(D) 维护密钥安全",
-        "答案": "B",
+        "答案": "A",
         "来源页码": 441
     },
     {
@@ -3125,7 +3125,7 @@ const questionsData = [
         "题号": "447",
         "英文题目与选项": "Data labels could include all the following, except:\n(A) Data value\n(B) Date of scheduled destruction\n(C) Date data was created\n(D) Data owner",
         "中文题目与选项": "数据标签可以包含以下所有内容，但不包括：\n(A) 数据值\n(B) 预定销毁日期\n(C) 数据创建日期\n(D) 数据所有者",
-        "答案": "B",
+        "答案": "A",
         "来源页码": 447
     },
     {
@@ -3146,7 +3146,7 @@ const questionsData = [
         "题号": "450",
         "英文题目与选项": "The various models generally available for cloud BC/DR activities include all of the following except:\n(A) Private architecture, cloud backup\n(B) Cloud provider, backup from another cloud provider\n(C) Cloud provider, backup from same provider\n(D) Cloud provider, backup from private provider",
         "中文题目与选项": "云计算业务连续性/灾难恢复（BC/DR）中常见的几种模型包括以下所有选项，除了：\n(A) 私有架构，云备份\n(B) 云服务提供商，从另一家云服务提供商进行备份\n(C) 云服务提供商，从同一提供商处进行备份\n(D) 云服务提供商，从私有提供商处进行备份",
-        "答案": "C",
+        "答案": "D",
         "来源页码": 450
     },
     {
@@ -3230,7 +3230,7 @@ const questionsData = [
         "题号": "462",
         "英文题目与选项": "Because of multitenancy, specific risks in the public cloud that don't exist in the other cloud service models include all the following except:\n(A) DoS/DDoS\n(B) Information bleed\n(C) Risk of loss/disclosure due to legal seizures\n(D) Escalation of privilege",
         "中文题目与选项": "由于多租户特性，公有云中存在而其他云服务模型中不存在的特定风险包括以下各项，除了：\n(A) 拒绝服务/分布式拒绝服务攻击（DoS/DDoS）\n(B) 信息泄露\n(C) 因法律查封导致的数据丢失或泄露风险\n(D) 权限提升",
-        "答案": "C",
+        "答案": "A",
         "来源页码": 462
     },
     {
@@ -3286,7 +3286,7 @@ const questionsData = [
         "题号": "470",
         "英文题目与选项": "The application normative framework is best described as which of the following?\n(A) A superset of the ONF\n(B) A stand-alone framework for storing security practices for the ONF\n(C) The complete ONF\n(D) A subnet of the ONF",
         "中文题目与选项": "关于应用规范框架（application normative framework），以下哪一项最能准确描述它？\n(A) ONF 的超集\n(B) 一个用于存储 ONF 安全实践的独立框架\n(C) 完整的 ONF\n(D) ONF 的子网",
-        "答案": "B",
+        "答案": "D",
         "来源页码": 470
     },
     {
