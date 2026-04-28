@@ -584,7 +584,7 @@ const questionsData = [
         "题号": "84",
         "英文题目与选项": "Which of the following threat types involves an application developer leaving references to internal information and configurations in code that is exposed to the client?\n(A) Sensitive data exposure\n(B) Security misconfiguration\n(C) Insecure direct object references\n(D) Unvalidated redirect and forwards",
         "中文题目与选项": "以下哪种威胁类型涉及应用程序开发人员在暴露给客户端的代码中留下对内部信息和配置的引用？\n(A) 敏感数据暴露\n(B) 安全配置错误\n(C) 不安全的直接对象引用\n(D) 未验证的重定向和转发",
-        "答案": "D",
+        "答案": "C",
         "来源页码": 84
     },
     {
@@ -808,7 +808,7 @@ const questionsData = [
         "题号": "116",
         "英文题目与选项": "What type of data does data rights management (DRM) protect?\n(A) Consumer\n(B) PII\n(C) Financial\n(D) Healthcare",
         "中文题目与选项": "数据权限管理（DRM）保护哪种类型的数据？\n(A) 消费者数据\n(B) 个人可识别信息（PII）\n(C) 财务数据\n(D) 医疗数据",
-        "答案": "B",
+        "答案": "A",
         "来源页码": 116
     },
     {
@@ -983,7 +983,7 @@ const questionsData = [
         "题号": "141",
         "英文题目与选项": "Which aspect of cloud computing makes it very difficult to perform repeat audits over time to track changes and compliance?\n(A) Virtualization\n(B) Multitenancy\n(C) Resource pooling\n(D) Dynamic optimization",
         "中文题目与选项": "云计算的哪个方面使得随着时间进行重复审计以跟踪变化和合规性变得非常困难？\n(A) 虚拟化\n(B) 多租户\n(C) 资源池化\n(D) 动态优化",
-        "答案": "D",
+        "答案": "A",
         "来源页码": 141
     },
     {
@@ -1109,7 +1109,7 @@ const questionsData = [
         "题号": "159",
         "英文题目与选项": "Which data point that auditors always desire is very difficult to provide within a cloud environment?\n(A) Access policy\n(B) Systems architecture\n(C) Baselines\n(D) Privacy statement",
         "中文题目与选项": "在云环境中，审计人员始终希望获得但非常难以提供的哪一类数据点？\n(A) 访问策略\n(B) 系统架构\n(C) 基线\n(D) 隐私声明",
-        "答案": "C",
+        "答案": "B",
         "来源页码": 159
     },
     {
@@ -1361,7 +1361,7 @@ const questionsData = [
         "题号": "195",
         "英文题目与选项": "What process is used within a cloud environment to maintain resource balancing and ensure that resources are available where and when needed?\n(A) Dynamic clustering\n(B) Dynamic balancing\n(C) Dynamic resource scheduling\n(D) Dynamic optimization",
         "中文题目与选项": "在云环境中使用哪种过程来保持资源平衡，并确保在需要的时间和地点资源可用？\n(A) 动态集群\n(B) 动态平衡\n(C) 动态资源调度\n(D) 动态优化",
-        "答案": "C",
+        "答案": "D",
         "来源页码": 195
     },
     {
@@ -1410,7 +1410,7 @@ const questionsData = [
         "题号": "202",
         "英文题目与选项": "One of the main components of system audits is the ability to track changes over time and to match these changes with continued compliance and internal processes. Which aspect of cloud computing makes this particular component more challenging than in a traditional data center?\n(A) Portability\n(B) Virtualization\n(C) Elasticity\n(D) Resource pooling",
         "中文题目与选项": "系统审计的主要组成部分之一是能够随着时间跟踪变更，并将这些变更与持续的合规性和内部流程相匹配。与传统数据中心相比，云计算的哪个特性使该组件更具挑战性？\n(A) 可移植性\n(B) 虚拟化\n(C) 弹性\n(D) 资源池化",
-        "答案": "C",
+        "答案": "B",
         "来源页码": 202
     },
     {
@@ -1431,7 +1431,7 @@ const questionsData = [
         "题号": "205",
         "英文题目与选项": "Which cloud service category would be most ideal for a cloud customer that is developing software to test its applications among multiple hosting providers to determine the best option for its needs?\n(A) DaaS\n(B) PaaS\n(C) IaaS\n(D) SaaS",
         "中文题目与选项": "对于一个正在开发软件以在多个托管服务提供商之间测试其应用程序，以确定最合适选项的云客户，哪个云服务类别最理想？\n(A) DaaS（桌面即服务）\n(B) PaaS（平台即服务）\n(C) IaaS（基础架构即服务）\n(D) SaaS（软件即服务）",
-        "答案": "C",
+        "答案": "B",
         "来源页码": 205
     },
     {
@@ -1522,7 +1522,7 @@ const questionsData = [
         "题号": "218",
         "英文题目与选项": "Which cloud storage type requires special consideration on the part of the cloud customer to ensure they do not program themselves into a vendor lock-in situation?\n(A) Unstructured\n(B) Object\n(C) Volume\n(D) Structured",
         "中文题目与选项": "哪种云存储类型需要云客户特别注意，以确保他们不会在程序开发时陷入厂商锁定的情况？\n(A) 非结构化\n(B) 对象存储\n(C) 卷存储\n(D) 结构化存储",
-        "答案": "B",
+        "答案": "D",
         "来源页码": 218
     },
     {
@@ -1627,7 +1627,7 @@ const questionsData = [
         "题号": "233",
         "英文题目与选项": "The president of your company has tasked you with implementing cloud services as the most efficient way of obtaining a robust disaster recovery configuration for your production services. Which of the cloud deployment models would you MOST likely be exploring?\n(A) Hybrid\n(B) Private\n(C) Community\n(D) Public",
         "中文题目与选项": "你公司的总裁委托你实施云服务，以最有效的方式为公司的生产服务获得一个稳健的灾难恢复配置。你最可能考虑的是哪种云部署模型？\n(A) 混合云\n(B) 私有云\n(C) 社区云\n(D) 公有云",
-        "答案": "D",
+        "答案": "A",
         "来源页码": 233
     },
     {
@@ -1704,7 +1704,7 @@ const questionsData = [
         "题号": "244",
         "英文题目与选项": "Which of the following roles would be responsible for managing memberships in federations and the use and integration of federated services?\n(A) Inter-cloud provider\n(B) Cloud service business manager\n(C) Cloud service administrator\n(D) Cloud service integrator",
         "中文题目与选项": "以下哪种角色负责在联合体中管理成员资格以及联合服务的使用和集成？\n(A) 跨云服务提供者\n(B) 云服务业务经理\n(C) 云服务管理员\n(D) 云服务集成商",
-        "答案": "D",
+        "答案": "A",
         "来源页码": 244
     },
     {
@@ -1788,7 +1788,7 @@ const questionsData = [
         "题号": "256",
         "英文题目与选项": "During which phase of the cloud data lifecycle is it possible for the classification of data to change?\n(A) Use\n(B) Archive\n(C) Create\n(D) Share",
         "中文题目与选项": "在云数据生命周期的哪个阶段，数据的分类可能会发生变化？\n(A) 使用\n(B) 存档\n(C) 创建\n(D) 共享",
-        "答案": "A",
+        "答案": "C",
         "来源页码": 256
     },
     {
@@ -1858,7 +1858,7 @@ const questionsData = [
         "题号": "266",
         "英文题目与选项": "Which of the following threat types involves leveraging a user's browser to send untrusted data to be executed with legitimate access via the user's valid credentials?\n(A) Injection\n(B) Missing function-level access control\n(C) Cross-site scripting\n(D) Cross-site request forgery",
         "中文题目与选项": "以下哪种威胁类型涉及利用用户的浏览器发送不受信任的数据，并通过用户的有效凭证以合法访问权限执行该数据？\n(A) 注入攻击\n(B) 缺少功能级访问控制\n(C) 跨站脚本攻击\n(D) 跨站请求伪造",
-        "答案": "D",
+        "答案": "C",
         "来源页码": 266
     },
     {
@@ -1886,7 +1886,7 @@ const questionsData = [
         "题号": "270",
         "英文题目与选项": "Although host-based and network-based IDSs perform similar functions and have similar capabilities, which of the following is an advantage of a network-based IDS over a host-based IDS, assuming all capabilities are equal?\n(A) Segregated from host systems\n(B) Network access\n(C) Scalability\n(D) External to system patching",
         "中文题目与选项": "尽管主机型和网络型入侵检测系统（IDS）具有类似的功能和能力，但在假设两者能力相同的情况下，下列哪一项是网络型 IDS 相对于主机型 IDS 的优势？\n(A) 与主机系统隔离\n(B) 网络访问\n(C) 可扩展性\n(D) 不受系统补丁影响",
-        "答案": "A",
+        "答案": "C",
         "来源页码": 270
     },
     {
@@ -2173,7 +2173,7 @@ const questionsData = [
         "题号": "311",
         "英文题目与选项": "Which of the following statements about Type 1 hypervisors is true?\n(A) The hardware vendor and software vendor are different.\n(B) The hardware vendor and software vendor are the same.\n(C) The hardware vendor provides an open platform for software vendors.\n(D) The hardware vendor and software vendor should always be different for the sake of security.",
         "中文题目与选项": "以下关于类型 1 虚拟机管理程序的说法中哪一项是正确的？\n(A) 硬件供应商和软件供应商是不同的。\n(B) 硬件供应商和软件供应商是相同的。\n(C) 硬件供应商为软件供应商提供开放的平台。\n(D) 为了安全考虑，硬件供应商和软件供应商应始终不同。",
-        "答案": "B",
+        "答案": "A",
         "来源页码": 311
     },
     {
@@ -2194,7 +2194,7 @@ const questionsData = [
         "题号": "314",
         "英文题目与选项": "Which of the following areas of responsibility would be shared between the cloud customer and cloud provider within the Software as a Service (SaaS) category?\n(A) Data\n(B) Governance\n(C) Application\n(D) Physical",
         "中文题目与选项": "在软件即服务（SaaS）类别中，以下哪一项责任领域是云客户与云服务提供商共同承担的？\n(A) 数据\n(B) 治理\n(C) 应用程序\n(D) 物理设施",
-        "答案": "A",
+        "答案": "C",
         "来源页码": 314
     },
     {
@@ -2712,7 +2712,7 @@ const questionsData = [
         "题号": "388",
         "英文题目与选项": "Which aspect of data poses the biggest challenge to using automated tools for data discovery and programmatic data classification?\n(A) Quantity\n(B) Language\n(C) Quality\n(D) Number of sources",
         "中文题目与选项": "数据的哪个方面在使用自动化工具进行数据发现和程序化数据分类时构成最大的挑战？\n(A) 数量\n(B) 语言\n(C) 质量\n(D) 数据源数量",
-        "答案": "B",
+        "答案": "C",
         "来源页码": 388
     },
     {
@@ -3384,7 +3384,7 @@ const questionsData = [
         "题号": "484",
         "英文题目与选项": "Maintenance mode requires all of these actions except:\n(A) Remove all active production instances\n(B) Ensure logging continues\n(C) Initiate enhanced security controls\n(D) Prevent new logins",
         "中文题目与选项": "维护模式需要执行以下所有操作，但以下哪项除外：\n(A) 移除所有活动的生产实例\n(B) 确保日志记录持续进行\n(C) 启动增强的安全控制\n(D) 阻止新的登录",
-        "答案": "A",
+        "答案": "C",
         "来源页码": 484
     },
     {
